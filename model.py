@@ -218,8 +218,7 @@ class MyModel(AIxBlockMLBase):
         from huggingface_hub import login 
        
         print(f"""
-                command: {command},
-                collection: {collection},
+                command: {command}
               """)
         if command.lower() == "train":
             try:
@@ -399,412 +398,290 @@ class MyModel(AIxBlockMLBase):
             return {"Share_url": link}
           
         elif command.lower() == "predict":
-                from huggingface_hub import login 
-                hf_access_token = kwargs.get("hf_access_token", "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")
-                login(token = hf_access_token)
+            from huggingface_hub import login 
+            import torch
+            hf_access_token = kwargs.get("hf_access_token", "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")
+            login(token = hf_access_token)
+            prompt = kwargs.get("prompt", "")
+            model_id = kwargs.get("model_id", "")
+            text = kwargs.get("text", "")
+            token_length = kwargs.get("token_lenght", "")
+            task = kwargs.get("task", "")
+
+            predictions = []
+            if task == "text-generation":
+                    # {"project":"296","params":{"task":"text-generation","model_id":"facebook/opt-125m"}}
+                _model = pipeline("text-generation", model=model_id)
+                result = _model(prompt, max_length=token_length)
+                generated_text = result[0]['generated_text']
+
+            elif task == "summarization":
+                _model = pipeline("summarization", model=model_id)
+                result = _model(prompt, max_length=token_length)
+                generated_text = result[0]['summary_text']
+            elif task == "question-answering":
+                # {"project":"296","params":{"task":"question-answering","model_id":"deepset/roberta-base-squad2"}}
+                _model = pipeline("question-answering", model=model_id)
+                result = _model(question=prompt, context=text)
+                generated_text = result['answer']
+
+            elif task == "translation":
+                    # {"project":"296","params":{"task":"translation","model_id":"google-t5/t5-small"}}
+                source = kwargs.get("source", "")
+                target = kwargs.get("target", "")
+                if len(target) == 0 :
+                    return {"message": "predict failed", "result": None}
+                _model = pipeline("translation_"+source+"_to_"+target,model=model_id)
+                result = _model(text)
+                generated_text = result[0]['translation_text']
+
+            elif task == "text-classification":
+                # {"project":"296","params":{"task":"text-classification","model_id":"distilbert-base-uncased"}}
+                _model = pipeline("text-classification", model=model_id)
+                result = _model(prompt)
+                generated_text = result[0]['label'] #, Score: {result[0]['score']}"
+
+            elif task == "sentiment-analysis":
+                    # {"project":"296","params":{"task":"sentiment-analysis","model_id":"tabularisai/robust-sentiment-analysis"}}
+                _model = pipeline("sentiment-analysis", model=model_id)
+                result = _model(prompt)
+                generated_text = result[0]['label'] #f"Sentiment: {result[0]['label']}, Score: {result[0]['score']}"
+
+            elif task == "ner":
+                # {"project":"296","params":{"task":"ner","model_id":"kaiku03/bert-base-NER-finetuned_custom_complain_dataset_NER9"}}
+                _model = pipeline("ner", model=model_id)
+                result = _model(text)
+                entities = [(entity['word'], entity['entity']) for entity in result]
+                generated_text = entities #f"Named Entities: {entities}"
+
+            elif task == "fill-mask":
+                _model = pipeline("fill-mask", model=model_id)
+                result = _model(prompt)
+                generated_text = result[0]['sequence'] #f"Masked Fill: {result[0]['sequence']}"
+
+            elif task == "text2text-generation":
+                    # {"project":"296","params":{"task":"text-generation","model_id":"facebook/opt-125m"}}
+                _model = pipeline("text2text-generation", model=model_id)
+                result = _model(prompt)
+                generated_text = result[0]['generated_text']
+
+            elif task == "multiple-choice":
+                # {"project":"296","params":{"task":"multiple-choice","model_id":"iarfmoose/t5-base-question-generator"}}
+                _model = pipeline("multiple-choice", model=model_id)
+                result = _model(context=prompt, choices=text)
+                generated_text = result[0]['answer'] #f"Choice: {result[0]['answer']}"
+                
+            elif task == "object-detection":
+                image_64 = kwargs.get("image")
+                model_id = kwargs.get("model_id", "facebook/detr-resnet-50")
+                object_detector = pipeline("object-detection", model=model_id)
+                object_detection = object_detector(image_64)
+
+                generated_text = object_detection[0]
+
+            elif task == "image-classification":
+                image_64 = kwargs.get("image")
+                model_id = kwargs.get("model_id", "google/vit-base-patch16-224")
+                image_classification = pipeline("image-classification", model=model_id)
+                image_classification = image_classification(image_64)
+
+                generated_text = image_classification[0]
+
+            elif task == "image-segmentation":
+                image_64 = kwargs.get("image")
+                model_id = kwargs.get("model_id", "facebook/mask2former-swin-large-coco-panoptic")
+                image_segmentation = pipeline("image-segmentation", model=model_id)
+                image_segmentation = image_segmentation(image_64)
+                generated_text = image_segmentation[0]
+
+            elif task == "video-classification":
+                #  {"project":"296","params":{"task":"video-classification","model_id":"sayakpaul/videomae-base-finetuned-kinetics-finetuned-ucf101-subset"}}
+                video_url = kwargs.get("video_url")
+                video_classificatio = pipeline("video-classification", model=model_id)
+                result=video_classificatio(video_url)
+                generated_text = result[0]
+            
+            elif task == "text-to-speech":
+                model_id = kwargs.get("model_id", "microsoft/speecht5_tts")
+                _model = pipeline("text-to-speech", model=model_id)
+                from datasets import load_dataset
                 import torch
-            # try:
-                # checkpoint = kwargs.get("checkpoint")
-                imagebase64 = kwargs.get("image","")
-                prompt = kwargs.get("prompt", "")
-                model_id = kwargs.get("model_id", "")
-                text = kwargs.get("text", "")
-                token_length = kwargs.get("token_lenght", "")
-                task = kwargs.get("task", "")
-                voice = kwargs.get("voice", "")
-                import torchaudio
-                if len(voice)>0:
-                   
-                    def decode_base64_to_audio(base64_audio, output_file="output.wav"):
-                        # Giải mã Base64 thành nhị phân
-                        audio_data = base64.b64decode(base64_audio)
-                        
-                        # Ghi dữ liệu nhị phân vào file âm thanh
-                        with open(output_file, "wb") as audio_file:
-                            audio_file.write(audio_data)
-                        return output_file
-                    
-                    audio_file = decode_base64_to_audio(voice["data"])
-                    file_path = "unity_on_device.ptl"
 
-                    if not os.path.exists(file_path):
-                        url = "https://huggingface.co/facebook/seamless-m4t-unity-small/resolve/main/unity_on_device.ptl"
-                        response = requests.get(url)
+                embeddings_dataset = load_dataset("Matthijs/cmu-arctic-xvectors", split="validation")
+                speaker_embedding = torch.tensor(embeddings_dataset[7306]["xvector"]).unsqueeze(0)
+                # You can replace this embedding with your own as well.
 
-                        # Lưu file
-                        with open("unity_on_device.ptl", "wb") as f:
-                            f.write(response.content)
+                speech = _model(prompt, forward_params={"speaker_embeddings": speaker_embedding})
 
-                    audio_input, _ = torchaudio.load(audio_file) # Load waveform using torchaudio
+                buffer = io.BytesIO()
+                sf.write(buffer, speech["audio"], samplerate=speech["sampling_rate"], format='WAV')
+                audio_bytes = buffer.getvalue()
+                audio_base64 = base64.b64encode(audio_bytes).decode('utf-8')
+                generated_text = audio_base64
+            
+            elif task == "text-to-audio":
+                model_id = kwargs.get("model_id", "facebook/musicgen-small")
+                synthesiser = pipeline("text-to-audio", model_id)
+                music = synthesiser(prompt, forward_params={"do_sample": True})
+                buffer = io.BytesIO()
+                scipy.io.wavfile.write(buffer, rate=music["sampling_rate"], data=music["audio"])
 
-                    s2st_model = torch.jit.load(file_path)
+                # Lấy bytes và mã hóa base64
+                audio_bytes = buffer.getvalue()
+                audio_base64 = base64.b64encode(audio_bytes).decode('utf-8')
+                generated_text = audio_base64
 
-                    with torch.no_grad():
-                        prompt, units, waveform = s2st_model(audio_input, tgt_lang="eng")
-
-                predictions = []
-                if task == "text-generation":
-                     # {"project":"296","params":{"task":"text-generation","model_id":"facebook/opt-125m"}}
-                    _model = pipeline("text-generation", model=model_id)
-                    result = _model(prompt, max_length=token_length)
-                    generated_text = result[0]['generated_text']
-
-                elif task == "summarization":
-                    _model = pipeline("summarization", model=model_id)
-                    result = _model(prompt, max_length=token_length)
-                    generated_text = result[0]['summary_text']
-                elif task == "question-answering":
-                    # {"project":"296","params":{"task":"question-answering","model_id":"deepset/roberta-base-squad2"}}
-                    _model = pipeline("question-answering", model=model_id)
-                    result = _model(question=prompt, context=text)
-                    generated_text = result['answer']
-
-                elif task == "translation":
-                     # {"project":"296","params":{"task":"translation","model_id":"google-t5/t5-small"}}
-                    source = kwargs.get("source", "")
-                    target = kwargs.get("target", "")
-                    if len(target) == 0 :
-                        return {"message": "predict failed", "result": None}
-                    _model = pipeline("translation_"+source+"_to_"+target,model=model_id)
-                    result = _model(text)
-                    generated_text = result[0]['translation_text']
-
-                elif task == "text-classification":
-                    # {"project":"296","params":{"task":"text-classification","model_id":"distilbert-base-uncased"}}
-                    _model = pipeline("text-classification", model=model_id)
-                    result = _model(prompt)
-                    generated_text = result[0]['label'] #, Score: {result[0]['score']}"
-
-                elif task == "sentiment-analysis":
-                     # {"project":"296","params":{"task":"sentiment-analysis","model_id":"tabularisai/robust-sentiment-analysis"}}
-                    _model = pipeline("sentiment-analysis", model=model_id)
-                    result = _model(prompt)
-                    generated_text = result[0]['label'] #f"Sentiment: {result[0]['label']}, Score: {result[0]['score']}"
-
-                elif task == "ner":
-                    # {"project":"296","params":{"task":"ner","model_id":"kaiku03/bert-base-NER-finetuned_custom_complain_dataset_NER9"}}
-                    _model = pipeline("ner", model=model_id)
-                    result = _model(text)
-                    entities = [(entity['word'], entity['entity']) for entity in result]
-                    generated_text = entities #f"Named Entities: {entities}"
-
-                elif task == "fill-mask":
-                    _model = pipeline("fill-mask", model=model_id)
-                    result = _model(prompt)
-                    generated_text = result[0]['sequence'] #f"Masked Fill: {result[0]['sequence']}"
-
-                elif task == "text2text-generation":
-                     # {"project":"296","params":{"task":"text-generation","model_id":"facebook/opt-125m"}}
-                    _model = pipeline("text2text-generation", model=model_id)
-                    result = _model(prompt)
-                    generated_text = result[0]['generated_text']
-
-                elif task == "multiple-choice":
-                    # {"project":"296","params":{"task":"multiple-choice","model_id":"iarfmoose/t5-base-question-generator"}}
-                    _model = pipeline("multiple-choice", model=model_id)
-                    result = _model(context=prompt, choices=text)
-                    generated_text = result[0]['answer'] #f"Choice: {result[0]['answer']}"
-                # if task == "text-generation":
-                #      # {"project":"296","params":{"task":"text-generation","model_id":"facebook/opt-125m"}}
-                #     _model = pipeline("text-generation", model=model_id)
-                #     result = _model(prompt, max_length=token_length)
-                #     import json
-                #     generated_text = json.dumps(result)
-
-
-                # elif task == "summarization":
-                #     # {"project":"296","params":{"task":"summarization","model_id":"QQhahaha/Summarization"}}
-                #     _model = pipeline("summarization", model=model_id)
-                #     result = _model(prompt, max_length=token_length)
-                #     import json
-                #     generated_text = json.dumps(result)
- 
-                # elif task == "question-answering":
-                #     # {"project":"296","params":{"task":"question-answering","model_id":"deepset/roberta-base-squad2"}} , tokenizer="google-bert/bert-base-cased"
-                #     _model = pipeline("question-answering", model=model_id)
-                #     result = _model(question=prompt, context=text)
-                #     import json
-                #     generated_text = json.dumps(result)
-
-                # elif task == "translation":
-                #      # {"project":"296","params":{"task":"translation","model_id":"facebook/m2m100_418M"}} #google-t5/t5-small
-                #     source = kwargs.get("source", "")
-                #     target = kwargs.get("target", "")
-                #     if len(target) == 0 :
-                #         return {"message": "predict failed", "result": None}
-                #     _model = pipeline("translation_"+source+"_to_"+target,model=model_id)
-                #     result = _model(text)
-                #     import json
-                #     generated_text = json.dumps(result)
-
-                # elif task == "text-classification":
-                #     # {"project":"296","params":{"task":"text-classification","model_id":"distilbert-base-uncased"}}
-                #     _model = pipeline("text-classification", model=model_id)
-                #     result = _model(prompt)
-                #     # generated_text = result[0]['label'] #, Score: {result[0]['score']}"
-                #     import json
-                #     generated_text = json.dumps(result)
-
-                # elif task == "sentiment-analysis":
-                #      # {"project":"296","params":{"task":"sentiment-analysis","model_id":"tabularisai/robust-sentiment-analysis"}} , tokenizer="google-bert/bert-base-cased"
-                #     _model = pipeline("sentiment-analysis", model=model_id)
-                #     result = _model(prompt)
-                #     # generated_text = result[0]['label'] #f"Sentiment: {result[0]['label']}, Score: {result[0]['score']}"
-                #     import json
-                #     generated_text = json.dumps(result)
-
-                # elif task == "ner":
-                #     # {"project":"296","params":{"task":"ner","model_id":"kaiku03/bert-base-NER-finetuned_custom_complain_dataset_NER9"}}
-                #     _model = pipeline("ner", model=model_id)
-                #     result = _model(text)
-                #     entities = [(entity['word'], entity['entity']) for entity in result]
-                #     generated_text = entities #f"Named Entities: {entities}"
-
-                # elif task == "fill-mask":
-                #     _model = pipeline("fill-mask", model=model_id)
-                #     result = _model(prompt)
-                #     generated_text = result[0]['sequence'] #f"Masked Fill: {result[0]['sequence']}"
-
-                # elif task == "text2text-generation":
-                #      # {"project":"296","params":{"task":"text-generation","model_id":"facebook/opt-125m"}}
-                #     _model = pipeline("text2text-generation", model=model_id)
-                #     result = _model(prompt)
-                #     # generated_text = result[0]['generated_text']
-                #     import json
-                #     generated_text = json.dumps(result)
-
-                # elif task == "multiple-choice":
-                #     # {"project":"296","params":{"task":"multiple-choice","model_id":"iarfmoose/t5-base-question-generator"}}
-                #     _model = pipeline("multiple-choice", model=model_id)
-                #     result = _model(context=prompt, choices=text)
-                #     # generated_text = result[0]['answer'] #f"Choice: {result[0]['answer']}"
-                #     import json
-                #     generated_text = json.dumps(result)
-                    
-                elif task == "object-detection":
-                    # {"project":"296","params":{"task":"object-detection","model_id":"hustvl/yolos-tiny"}}
-                #    "facebook/detr-resnet-50","facebook/detr-resnet-101",'hustvl/yolos-small','hustvl/yolos-tiny' facebook/detr-resnet-50
-                    from PIL import Image
-                    image_64 = kwargs.get("image")
-                    model_id = kwargs.get("model_id", "facebook/detr-resnet-50")
-                    object_detector = pipeline("object-detection", model=model_id)
-                    image = image_64.replace('data:image/png;base64,', '')
-                    # image_classification(Image.open(io.BytesIO(base64.b64decode(image))).convert('RGB'))
-                    object_detection = object_detector(Image.open(io.BytesIO(base64.b64decode(image))).convert('RGB'))
-
-                    generated_text = object_detection[0]
-
-                elif task == "image-classification":
-                    # {"project":"296","params":{"task":"image-classification","model_id":"google/vit-base-patch16-224"}}
-                    # google/vit-base-patch16-224
-                    from PIL import Image
-                    image_64 = kwargs.get("image")
-                    model_id = kwargs.get("model_id", "google/vit-base-patch16-224")
-                    image_classification = pipeline("image-classification", model=model_id)
-                    image = image_64.replace('data:image/png;base64,', '')
-                    # image_classification(Image.open(io.BytesIO(base64.b64decode(image))).convert('RGB'))
-                    image_classification = image_classification(im)
-
-                    generated_text = image_classification[0]
-
-                elif task == "image-segmentation":
-                    # {"project":"296","params":{"task":"image-segmentation","model_id":"Caraaaaa/image_segmentation_text"}}
-                    from PIL import Image
-                    image_64 = kwargs.get("image")
-                    model_id = kwargs.get("model_id", "facebook/mask2former-swin-large-coco-panoptic")
-                    image_segmentation = pipeline("image-segmentation", model=model_id)
-                    image = image_64.replace('data:image/png;base64,', '')
-                    result=image_segmentation(Image.open(io.BytesIO(base64.b64decode(image))).convert('RGB'))
-                    generated_text = result[0]
-
-                elif task == "video-classification":
-                    #  {"project":"296","params":{"task":"video-classification","model_id":"sayakpaul/videomae-base-finetuned-kinetics-finetuned-ucf101-subset"}}
-                    video_url = kwargs.get("video_url")
-                    video_classificatio = pipeline("video-classification", model=model_id)
-                    result=video_classificatio(video_url)
-                    generated_text = result[0]
+            elif task == "automatic-speech-recognition":
+                import librosa
+                import requests
+                import soundfile as sf
+                import torch
                 
-                elif task == "text-to-speech":
-                    model_id = kwargs.get("model_id", "microsoft/speecht5_tts")
-                    _model = pipeline("text-to-speech", model=model_id)
-                    from datasets import load_dataset
-                    import torch
-
-                    embeddings_dataset = load_dataset("Matthijs/cmu-arctic-xvectors", split="validation")
-                    speaker_embedding = torch.tensor(embeddings_dataset[7306]["xvector"]).unsqueeze(0)
-                    # You can replace this embedding with your own as well.
-
-                    speech = _model("Xin chào Việt Nam!", forward_params={"speaker_embeddings": speaker_embedding})
-
-                    buffer = io.BytesIO()
-                    sf.write(buffer, speech["audio"], samplerate=speech["sampling_rate"], format='WAV')
-                    audio_bytes = buffer.getvalue()
-                    audio_base64 = base64.b64encode(audio_bytes).decode('utf-8')
-                    generated_text = audio_base64
-                
-                elif task == "text-to-audio":
-                    model_id = kwargs.get("model_id", "facebook/musicgen-small")
-                    synthesiser = pipeline("text-to-audio", model_id)
-                    music = synthesiser("lo-fi music with a soothing melody", forward_params={"do_sample": True})
-                    buffer = io.BytesIO()
-                    scipy.io.wavfile.write(buffer, rate=music["sampling_rate"], data=music["audio"])
-
-                    # Lấy bytes và mã hóa base64
-                    audio_bytes = buffer.getvalue()
-                    audio_base64 = base64.b64encode(audio_bytes).decode('utf-8')
-                    generated_text = audio_base64
-
-                elif task == "automatic-speech-recognition":
-                    import librosa
-                    import requests
-                    import soundfile as sf
-                    import torch
-                    
-                    model_id = kwargs.get("model_id", "openai/whisper-small")
-                    audio_url = kwargs.get("audio_url")
+                model_id = kwargs.get("model_id", "openai/whisper-small")
+                audio_url = kwargs.get("audio_url")
 
 
-                    # Chọn device tự động
-                    device = "cuda:0" if torch.cuda.is_available() else "cpu"
+                # Chọn device tự động
+                device = "cuda:0" if torch.cuda.is_available() else "cpu"
 
-                    # Tạo pipeline cho ASR
-                    pipe = pipeline(
-                        "automatic-speech-recognition",
-                        model="openai/whisper-small",
-                        chunk_length_s=30,
-                        device=device,
-                    )
+                # Tạo pipeline cho ASR
+                pipe = pipeline(
+                    "automatic-speech-recognition",
+                    model="openai/whisper-small",
+                    chunk_length_s=30,
+                    device=device,
+                )
 
-                    # Load audio thật từ máy bạn
-                    def load_audio_from_url(url):
-                        response = requests.get(url)
-                        if response.status_code != 200:
-                            raise Exception(f"Failed to download audio: {response.status_code}")
-                        audio_bytes = io.BytesIO(response.content)
-                        speech_array, sampling_rate = sf.read(audio_bytes)
-                        return speech_array, sampling_rate
+                # Load audio thật từ máy bạn
+                def load_audio_from_url(url):
+                    response = requests.get(url)
+                    if response.status_code != 200:
+                        raise Exception(f"Failed to download audio: {response.status_code}")
+                    audio_bytes = io.BytesIO(response.content)
+                    speech_array, sampling_rate = sf.read(audio_bytes)
+                    return speech_array, sampling_rate
 
-                    # URL file audio của bạn
+                # URL file audio của bạn
 
-                    # Load audio từ URL
-                    speech_array, sampling_rate = load_audio_from_url(audio_url)
+                # Load audio từ URL
+                speech_array, sampling_rate = load_audio_from_url(audio_url)
 
-                    # Nếu sampling_rate không phải 16kHz -> resample
-                    if sampling_rate != 16000:
-                        speech_array = librosa.resample(speech_array, orig_sr=sampling_rate, target_sr=16000)
-                        sampling_rate = 16000
+                # Nếu sampling_rate không phải 16kHz -> resample
+                if sampling_rate != 16000:
+                    speech_array = librosa.resample(speech_array, orig_sr=sampling_rate, target_sr=16000)
+                    sampling_rate = 16000
 
-                    output = pipe(
-                        {"array": speech_array, "sampling_rate": sampling_rate},
-                        batch_size=8,
-                        return_timestamps=True,   # Lưu ý: phải dùng "chunk"
-                    )["chunks"]
+                output = pipe(
+                    {"array": speech_array, "sampling_rate": sampling_rate},
+                    batch_size=8,
+                    return_timestamps=True,   # Lưu ý: phải dùng "chunk"
+                )["chunks"]
 
-                    # Format lại cho đẹp: timestamp tuple
-                    formatted_output = [
-                        {
-                            "timestamp": (chunk["timestamp"][0], chunk["timestamp"][1]),
-                            "text": chunk["text"]
-                        }
-                        for chunk in output
-                    ]
+                # Format lại cho đẹp: timestamp tuple
+                formatted_output = [
+                    {
+                        "timestamp": (chunk["timestamp"][0], chunk["timestamp"][1]),
+                        "text": chunk["text"]
+                    }
+                    for chunk in output
+                ]
 
-                    generated_text = formatted_output
-                
-                elif task == "image-to-text":
-                    # {"project":"296","params":{"task":"image-to-text","model_id":"Salesforce/blip-image-captioning-base"}}
-                    from PIL import Image
-                    image = image_64.replace('data:image/png;base64,', '')
-                    model_id = kwargs.get("model_id", "Salesforce/blip-image-captioning-base")
-                    image_text = pipeline("image-to-text", model=model_id)
-                    result = image_text(Image.open(io.BytesIO(base64.b64decode(image))).convert('RGB'))
-                    generated_text = result[0]['generated_text']
+                generated_text = formatted_output
+            
+            elif task == "image-to-text":
+                # {"project":"296","params":{"task":"image-to-text","model_id":"Salesforce/blip-image-captioning-base"}}
+                from PIL import Image
+                image = image_64.replace('data:image/png;base64,', '')
+                model_id = kwargs.get("model_id", "Salesforce/blip-image-captioning-base")
+                image_text = pipeline("image-to-text", model=model_id)
+                result = image_text(Image.open(io.BytesIO(base64.b64decode(image))).convert('RGB'))
+                generated_text = result[0]['generated_text']
 
-                elif task == "text-to-image":
-                    # {"project":"296","params":{"task":"text-to-image","model_id":"akurei/waifu-diffusion"}}
-                    from diffusers import StableDiffusionPipeline
+            elif task == "text-to-image":
+                # {"project":"296","params":{"task":"text-to-image","model_id":"akurei/waifu-diffusion"}}
+                from diffusers import StableDiffusionPipeline
 
-                    pipe = StableDiffusionPipeline.from_pretrained(model_id, torch_dtype=torch.float16)
-                    pipe = pipe.to("cuda")
-                    image = pipe(prompt).images[0]  
-                    buffer = io.BytesIO()
-                    # Lưu ảnh vào buffer dưới dạng PNG hoặc một định dạng phù hợp
-                    image.save(buffer, format="PNG")
-                    # Đặt con trỏ của buffer về vị trí đầu tiên
-                    buffer.seek(0)
+                pipe = StableDiffusionPipeline.from_pretrained(model_id, torch_dtype=torch.float16)
+                pipe = pipe.to("cuda")
+                image = pipe(prompt).images[0]  
+                buffer = io.BytesIO()
+                # Lưu ảnh vào buffer dưới dạng PNG hoặc một định dạng phù hợp
+                image.save(buffer, format="PNG")
+                # Đặt con trỏ của buffer về vị trí đầu tiên
+                buffer.seek(0)
+                # Mã hóa buffer thành chuỗi base64
+                generated_text = base64.b64encode(buffer.getvalue()).decode('utf-8')
+
+            elif task == "text-to-video":
+                # {"project":"296","params":{"task":"text-to-video","model_id":"damo-vilab/text-to-video-ms-1.7b"}}
+                import torch
+                from diffusers import DiffusionPipeline
+                from diffusers.utils import export_to_video
+
+                pipe = DiffusionPipeline.from_pretrained(model_id, torch_dtype=torch.float16)
+                pipe.enable_model_cpu_offload()
+
+                # memory optimization
+                pipe.enable_vae_slicing()
+                video_frames = pipe(prompt, num_frames=64).frames[0]
+                video_path = export_to_video(video_frames)
+                with open(video_path, "rb") as videoFile:
+                    base64_video = base64.b64encode(videoFile.read())
                     # Mã hóa buffer thành chuỗi base64
-                    generated_text = base64.b64encode(buffer.getvalue()).decode('utf-8')
+                    generated_text = base64_video
 
-                elif task == "text-to-video":
-                    # {"project":"296","params":{"task":"text-to-video","model_id":"damo-vilab/text-to-video-ms-1.7b"}}
-                    import torch
-                    from diffusers import DiffusionPipeline
-                    from diffusers.utils import export_to_video
+            elif task == "image-to-video":
+                # {"project":"296","params":{"task":"image-to-video","model_id":"THUDM/CogVideoX-5b-I2V"}}
 
-                    pipe = DiffusionPipeline.from_pretrained(model_id, torch_dtype=torch.float16)
-                    pipe.enable_model_cpu_offload()
+                import torch
+                from diffusers import CogVideoXImageToVideoPipeline
+                from diffusers.utils import export_to_video, load_image
+                from PIL import Image, ImageDraw
 
-                    # memory optimization
-                    pipe.enable_vae_slicing()
-                    video_frames = pipe(prompt, num_frames=64).frames[0]
-                    video_path = export_to_video(video_frames)
-                    with open(video_path, "rb") as videoFile:
-                        base64_video = base64.b64encode(videoFile.read())
-                        # Mã hóa buffer thành chuỗi base64
-                        generated_text = base64_video
-
-                elif task == "image-to-video":
-                    # {"project":"296","params":{"task":"image-to-video","model_id":"THUDM/CogVideoX-5b-I2V"}}
-
-                    import torch
-                    from diffusers import CogVideoXImageToVideoPipeline
-                    from diffusers.utils import export_to_video, load_image
-                    from PIL import Image, ImageDraw
-
-                    # prompt = "A vast, shimmering ocean flows gracefully under a twilight sky, its waves undulating in a mesmerizing dance of blues and greens. The surface glints with the last rays of the setting sun, casting golden highlights that ripple across the water. Seagulls soar above, their cries blending with the gentle roar of the waves. The horizon stretches infinitely, where the ocean meets the sky in a seamless blend of hues. Close-ups reveal the intricate patterns of the waves, capturing the fluidity and dynamic beauty of the sea in motion."
-                    # image = load_image(image="cogvideox_rocket.png")
-                    image_64 = kwargs.get("image")
-                    image = image_64.replace('data:image/png;base64,', '')
-                    pipe = CogVideoXImageToVideoPipeline.from_pretrained(
-                        model_id,
-                        torch_dtype=torch.bfloat16
-                    )
-                    
-                    pipe.vae.enable_tiling()
-                    pipe.vae.enable_slicing()
-
-                    video = pipe(
-                        prompt=prompt,
-                        image=Image.open(io.BytesIO(base64.b64decode(image))).convert('RGB'),
-                        num_videos_per_prompt=1,
-                        num_inference_steps=24,
-                        num_frames=24,
-                        guidance_scale=6,
-                        generator=torch.Generator(device="cuda").manual_seed(42),
-                    ).frames[0]
-
-                    export_to_video(video, "output.mp4", fps=8)
-                    with open("output.mp4", "rb") as videoFile:
-                        base64_video = base64.b64encode(videoFile.read())
-                        # Mã hóa buffer thành chuỗi base64
-                        generated_text = base64_video
+                # prompt = "A vast, shimmering ocean flows gracefully under a twilight sky, its waves undulating in a mesmerizing dance of blues and greens. The surface glints with the last rays of the setting sun, casting golden highlights that ripple across the water. Seagulls soar above, their cries blending with the gentle roar of the waves. The horizon stretches infinitely, where the ocean meets the sky in a seamless blend of hues. Close-ups reveal the intricate patterns of the waves, capturing the fluidity and dynamic beauty of the sea in motion."
+                # image = load_image(image="cogvideox_rocket.png")
+                image_64 = kwargs.get("image")
+                image = image_64.replace('data:image/png;base64,', '')
+                pipe = CogVideoXImageToVideoPipeline.from_pretrained(
+                    model_id,
+                    torch_dtype=torch.bfloat16
+                )
                 
-                else:
-                    raise ValueError(f"Task type '{task}' not supported")
-                
-                predictions.append({
-                    'result': [{
-                        'from_name': "generated_text",
-                        'to_name': "text_output",
-                        'type': 'textarea',
-                        'value': {
-                            'text': [generated_text]
-                        }
-                    }],
-                    'model_version': ""
-                })
+                pipe.vae.enable_tiling()
+                pipe.vae.enable_slicing()
 
-                return {"message": "predict completed successfully", "result": predictions}
+                video = pipe(
+                    prompt=prompt,
+                    image=Image.open(io.BytesIO(base64.b64decode(image))).convert('RGB'),
+                    num_videos_per_prompt=1,
+                    num_inference_steps=24,
+                    num_frames=24,
+                    guidance_scale=6,
+                    generator=torch.Generator(device="cuda").manual_seed(42),
+                ).frames[0]
+
+                export_to_video(video, "output.mp4", fps=8)
+                with open("output.mp4", "rb") as videoFile:
+                    base64_video = base64.b64encode(videoFile.read())
+                    # Mã hóa buffer thành chuỗi base64
+                    generated_text = base64_video
+            
+            else:
+                raise ValueError(f"Task type '{task}' not supported")
+            
+            predictions.append({
+                'result': [{
+                    'from_name': "generated_text",
+                    'to_name': "text_output",
+                    'type': 'textarea',
+                    'value': {
+                        'text': [generated_text]
+                    }
+                }],
+                'model_version': ""
+            })
+
+            return {"message": "predict completed successfully", "result": predictions}
             # except Exception as e:
             #     print(e)
             #     return {"message": "predict failed", "result": None}
@@ -864,7 +741,7 @@ class MyModel(AIxBlockMLBase):
             print(result)
             read_logs()
             return result
-            
+
         def generate_text2text_response(input_text):
             from huggingface_hub import login 
             hf_access_token = kwargs.get("hf_access_token", "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")
