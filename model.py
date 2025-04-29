@@ -481,7 +481,7 @@ class MyModel(AIxBlockMLBase):
                 image_64 = kwargs.get("image")
                 model_id = kwargs.get("model_id", "facebook/detr-resnet-50")
                 object_detector = pipeline("object-detection", model=model_id)
-                object_detection = object_detector(image_64, device=device)
+                object_detection = object_detector(image_64)
 
                 generated_text = object_detection[0]
 
@@ -489,7 +489,7 @@ class MyModel(AIxBlockMLBase):
                 image_64 = kwargs.get("image")
                 model_id = kwargs.get("model_id", "google/vit-base-patch16-224")
                 image_classification = pipeline("image-classification", model=model_id)
-                image_classification = image_classification(image_64, device=device)
+                image_classification = image_classification(image_64)
 
                 generated_text = image_classification[0]
 
@@ -497,7 +497,7 @@ class MyModel(AIxBlockMLBase):
                 image_64 = kwargs.get("image")
                 model_id = kwargs.get("model_id", "facebook/mask2former-swin-large-coco-panoptic")
                 image_segmentation = pipeline("image-segmentation", model=model_id)
-                image_segmentation = image_segmentation(image_64, device=device)
+                image_segmentation = image_segmentation(image_64)
                 generated_text = image_segmentation[0]
                 from io import BytesIO
                 import cv2

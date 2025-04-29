@@ -69,3 +69,4 @@ fastapi
 uvicorn
 mcp
 soundfile
+sentencepiece
