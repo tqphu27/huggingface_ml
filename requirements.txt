@@ -23,7 +23,7 @@ grafana-api
 diffusers==0.30.3
 sentencepiece==0.1.96
 
-datasets==2.18.0
+datasets
 trl
 peft
 scipy
@@ -32,12 +32,9 @@ bitsandbytes>=0.41.3
 langchain
 langchain_community
 langchain_huggingface
-en_core_web_sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-2.3.1/en_core_web_sm-2.3.1.tar.gz
-tiktoken
 # accelerate>=0.27.0
 nvidia-ml-py
 wandb
-langchain_huggingface
 flask_swagger_ui
 pyyaml
 gradio_log
