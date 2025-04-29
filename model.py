@@ -529,6 +529,7 @@ class MyModel(AIxBlockMLBase):
                 generated_text = result[0]
             
             elif task == "text-to-speech":
+                import soundfile as sf
                 model_id = kwargs.get("model_id", "microsoft/speecht5_tts")
                 _model = pipeline("text-to-speech", model=model_id, device=device)
                 from datasets import load_dataset
