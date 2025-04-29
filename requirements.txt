@@ -1,0 +1,44 @@
+transformers #==4.38.0
+accelerate==0.28.0
+prometheus-client
+aixblock-ml
+aixblock-sdk
+aixblock-tools
+tensorboardX==1.9
+gradio #==3.50
+redis
+rq
+flask>=2.2
+flask-cors
+Werkzeug>=2.0
+gunicorn>=20.0
+colorama
+lxml
+appdirs
+gitpython
+centrifuge-python
+opencv-python>=4.1.1
+numpy
+grafana-api
+diffusers==0.30.3
+sentencepiece==0.1.96
+
+datasets==2.18.0
+trl
+peft
+scipy
+flash-attn
+bitsandbytes>=0.41.3
+langchain
+langchain_community
+langchain_huggingface
+en_core_web_sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-2.3.1/en_core_web_sm-2.3.1.tar.gz
+tiktoken
+# accelerate>=0.27.0
+nvidia-ml-py
+wandb
+langchain_huggingface
+flask_swagger_ui
+pyyaml
+gradio_log
+tf-keras
