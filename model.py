@@ -413,6 +413,8 @@ class MyModel(AIxBlockMLBase):
             task = kwargs.get("task", "")
 
             predictions = []
+            device = "cuda:0" if torch.cuda.is_available() else "cpu"
+
             if task == "text-generation":
                     # {"project":"296","params":{"task":"text-generation","model_id":"facebook/opt-125m"}}
                 _model = pipeline("text-generation", model=model_id)
@@ -479,7 +481,7 @@ class MyModel(AIxBlockMLBase):
                 image_64 = kwargs.get("image")
                 model_id = kwargs.get("model_id", "facebook/detr-resnet-50")
                 object_detector = pipeline("object-detection", model=model_id)
-                object_detection = object_detector(image_64)
+                object_detection = object_detector(image_64, device=device)
 
                 generated_text = object_detection[0]
 
@@ -487,7 +489,7 @@ class MyModel(AIxBlockMLBase):
                 image_64 = kwargs.get("image")
                 model_id = kwargs.get("model_id", "google/vit-base-patch16-224")
                 image_classification = pipeline("image-classification", model=model_id)
-                image_classification = image_classification(image_64)
+                image_classification = image_classification(image_64, device=device)
 
                 generated_text = image_classification[0]
 
@@ -495,7 +497,7 @@ class MyModel(AIxBlockMLBase):
                 image_64 = kwargs.get("image")
                 model_id = kwargs.get("model_id", "facebook/mask2former-swin-large-coco-panoptic")
                 image_segmentation = pipeline("image-segmentation", model=model_id)
-                image_segmentation = image_segmentation(image_64)
+                image_segmentation = image_segmentation(image_64, device=device)
                 generated_text = image_segmentation[0]
                 from io import BytesIO
                 import cv2
@@ -523,12 +525,12 @@ class MyModel(AIxBlockMLBase):
                 #  {"project":"296","params":{"task":"video-classification","model_id":"sayakpaul/videomae-base-finetuned-kinetics-finetuned-ucf101-subset"}}
                 video_url = kwargs.get("video_url")
                 video_classificatio = pipeline("video-classification", model=model_id)
-                result=video_classificatio(video_url)
+                result=video_classificatio(video_url, device=device)
                 generated_text = result[0]
             
             elif task == "text-to-speech":
                 model_id = kwargs.get("model_id", "microsoft/speecht5_tts")
-                _model = pipeline("text-to-speech", model=model_id)
+                _model = pipeline("text-to-speech", model=model_id, device=device)
                 from datasets import load_dataset
                 import torch
 
@@ -546,7 +548,7 @@ class MyModel(AIxBlockMLBase):
             
             elif task == "text-to-audio":
                 model_id = kwargs.get("model_id", "facebook/musicgen-small")
-                synthesiser = pipeline("text-to-audio", model_id)
+                synthesiser = pipeline("text-to-audio", model_id, device=device)
                 music = synthesiser(prompt, forward_params={"do_sample": True})
                 buffer = io.BytesIO()
                 scipy.io.wavfile.write(buffer, rate=music["sampling_rate"], data=music["audio"])
