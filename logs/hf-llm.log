@@ -1,0 +1,1319 @@
+2024-09-22 02:50:46,152 - INFO - Job queue is empty
+2024-09-22 02:50:48,057 - INFO - Job queue is empty
+2024-09-22 02:51:34,172 - INFO - Job queue is empty
+2024-09-22 02:52:13,768 - INFO - Job queue is empty
+2024-09-22 05:07:48,864 - INFO - Job queue is empty
+2024-09-23 11:03:26,727 - INFO - Job queue is empty
+2024-09-23 11:05:08,387 - INFO - Job queue is empty
+2024-09-23 11:08:40,380 - INFO - Job queue is empty
+2024-09-23 11:08:40,392 - ERROR - Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/exceptions.py", line 39, in exception_f
+    return f(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/api.py", line 242, in _action
+    response_collection, model = _manager.action(
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/model.py", line 645, in action
+    predictions = m.model.action(project, command,collection,**kwargs)
+  File "/app/model.py", line 586, in action
+    audio_file = decode_base64_to_audio(voice["data"])
+  File "/app/model.py", line 579, in decode_base64_to_audio
+    audio_data = base64.b64decode(base64_audio)
+  File "/usr/lib/python3.10/base64.py", line 87, in b64decode
+    return binascii.a2b_base64(s)
+binascii.Error: Incorrect padding
+
+2024-09-23 11:12:59,708 - INFO - Job queue is empty
+2024-12-02 09:51:01,452 - INFO - Job queue is empty
+2024-12-02 09:51:03,284 - INFO - generated new fontManager
+2024-12-02 09:51:04,240 - ERROR - Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/transformers/utils/hub.py", line 398, in cached_file
+    resolved_file = hf_hub_download(
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/utils/_validators.py", line 106, in _inner_fn
+    validate_repo_id(arg_value)
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/utils/_validators.py", line 160, in validate_repo_id
+    raise HFValidationError(
+huggingface_hub.errors.HFValidationError: Repo id must use alphanumeric chars or '-', '_', '.', '--' and '..' are forbidden, '-' and '.' cannot start or end the name, max length is 96: ''.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/exceptions.py", line 39, in exception_f
+    return f(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/api.py", line 158, in _model
+    predictions, model = _manager.model(
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/model.py", line 679, in model
+    predictions = m.model.model(project, **kwargs)
+  File "/app/model.py", line 879, in model
+    pipe = pipeline(task, model=model_id)
+  File "/usr/local/lib/python3.10/dist-packages/transformers/pipelines/__init__.py", line 779, in pipeline
+    resolved_config_file = cached_file(
+  File "/usr/local/lib/python3.10/dist-packages/transformers/utils/hub.py", line 462, in cached_file
+    raise EnvironmentError(
+OSError: Incorrect path_or_model_id: ''. Please provide either the path to a local folder or the repo_id of a model on the Hub.
+
+2024-12-02 09:52:12,880 - INFO - Job queue is empty
+2024-12-02 09:53:24,370 - INFO - Job queue is empty
+2024-12-03 03:44:27,131 - INFO - Job queue is empty
+2024-12-03 03:44:28,630 - INFO - generated new fontManager
+2024-12-03 03:47:04,449 - INFO - Job queue is empty
+2024-12-03 03:50:47,076 - INFO - Job queue is empty
+2024-12-03 04:07:13,470 - INFO - Job queue is empty
+2024-12-03 04:07:16,862 - INFO - generated new fontManager
+2024-12-03 04:29:52,932 - INFO - Job queue is empty
+2024-12-03 04:29:54,901 - INFO - generated new fontManager
+2024-12-03 04:29:59,351 - ERROR - Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/exceptions.py", line 39, in exception_f
+    return f(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/api.py", line 158, in _model
+    predictions, model = _manager.model(
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/model.py", line 679, in model
+    predictions = m.model.model(project, **kwargs)
+  File "/app/model.py", line 879, in model
+    pipe = pipeline(task, model=model_id)
+  File "/usr/local/lib/python3.10/dist-packages/transformers/pipelines/__init__.py", line 905, in pipeline
+    framework, model = infer_framework_load_model(
+  File "/usr/local/lib/python3.10/dist-packages/transformers/pipelines/base.py", line 292, in infer_framework_load_model
+    raise ValueError(
+ValueError: Could not load model ivrit-ai/faster-whisper-v2-d4 with any of the following classes: (<class 'transformers.models.auto.modeling_auto.AutoModelForCTC'>, <class 'transformers.models.auto.modeling_auto.AutoModelForSpeechSeq2Seq'>). See the original errors:
+
+while loading with AutoModelForCTC, an error is thrown:
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/transformers/pipelines/base.py", line 279, in infer_framework_load_model
+    model = model_class.from_pretrained(model, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/transformers/models/auto/auto_factory.py", line 564, in from_pretrained
+    raise ValueError(
+ValueError: Unrecognized configuration class <class 'transformers.models.whisper.configuration_whisper.WhisperConfig'> for this kind of AutoModel: AutoModelForCTC.
+Model type should be one of Data2VecAudioConfig, HubertConfig, MCTCTConfig, SEWConfig, SEWDConfig, UniSpeechConfig, UniSpeechSatConfig, Wav2Vec2Config, Wav2Vec2BertConfig, Wav2Vec2ConformerConfig, WavLMConfig.
+
+while loading with AutoModelForSpeechSeq2Seq, an error is thrown:
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/transformers/pipelines/base.py", line 279, in infer_framework_load_model
+    model = model_class.from_pretrained(model, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/transformers/models/auto/auto_factory.py", line 561, in from_pretrained
+    return model_class.from_pretrained(
+  File "/usr/local/lib/python3.10/dist-packages/transformers/modeling_utils.py", line 3234, in from_pretrained
+    raise EnvironmentError(
+OSError: ivrit-ai/faster-whisper-v2-d4 does not appear to have a file named pytorch_model.bin, tf_model.h5, model.ckpt or flax_model.msgpack.
+
+
+
+
+2024-12-03 04:32:50,393 - INFO - Job queue is empty
+2024-12-03 04:50:33,208 - INFO - Job queue is empty
+2024-12-03 04:50:36,603 - INFO - generated new fontManager
+2024-12-03 05:05:23,827 - INFO - Job queue is empty
+2024-12-03 05:05:24,856 - ERROR - Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/utils/_http.py", line 406, in hf_raise_for_status
+    response.raise_for_status()
+  File "/usr/local/lib/python3.10/dist-packages/requests/models.py", line 1024, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://huggingface.co/sd-dreambooth-library/cat-toy/resolve/main/config.json
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/transformers/utils/hub.py", line 398, in cached_file
+    resolved_file = hf_hub_download(
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/file_download.py", line 862, in hf_hub_download
+    return _hf_hub_download_to_cache_dir(
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/file_download.py", line 925, in _hf_hub_download_to_cache_dir
+    (url_to_download, etag, commit_hash, expected_size, head_call_error) = _get_metadata_or_catch_error(
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/file_download.py", line 1376, in _get_metadata_or_catch_error
+    metadata = get_hf_file_metadata(
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/file_download.py", line 1296, in get_hf_file_metadata
+    r = _request_wrapper(
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/file_download.py", line 277, in _request_wrapper
+    response = _request_wrapper(
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/file_download.py", line 301, in _request_wrapper
+    hf_raise_for_status(response)
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/utils/_http.py", line 417, in hf_raise_for_status
+    raise _format(EntryNotFoundError, message, response) from e
+huggingface_hub.errors.EntryNotFoundError: 404 Client Error. (Request ID: Root=1-674e9194-30d872134b9488301ef2d5b5;a1b6b05e-b596-456b-8102-794f7afb6f7c)
+
+Entry Not Found for url: https://huggingface.co/sd-dreambooth-library/cat-toy/resolve/main/config.json.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/exceptions.py", line 39, in exception_f
+    return f(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/api.py", line 158, in _model
+    predictions, model = _manager.model(
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/model.py", line 679, in model
+    predictions = m.model.model(project, **kwargs)
+  File "/app/model.py", line 879, in model
+    pipe = pipeline(task, model=model_id)
+  File "/usr/local/lib/python3.10/dist-packages/transformers/pipelines/__init__.py", line 815, in pipeline
+    config = AutoConfig.from_pretrained(
+  File "/usr/local/lib/python3.10/dist-packages/transformers/models/auto/configuration_auto.py", line 1111, in from_pretrained
+    config_dict, unused_kwargs = PretrainedConfig.get_config_dict(pretrained_model_name_or_path, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/transformers/configuration_utils.py", line 633, in get_config_dict
+    config_dict, kwargs = cls._get_config_dict(pretrained_model_name_or_path, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/transformers/configuration_utils.py", line 688, in _get_config_dict
+    resolved_config_file = cached_file(
+  File "/usr/local/lib/python3.10/dist-packages/transformers/utils/hub.py", line 452, in cached_file
+    raise EnvironmentError(
+OSError: sd-dreambooth-library/cat-toy does not appear to have a file named config.json. Checkout 'https://huggingface.co/sd-dreambooth-library/cat-toy/main' for available files.
+
+2024-12-03 05:06:14,288 - INFO - Job queue is empty
+2024-12-03 05:06:14,886 - ERROR - Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/utils/_http.py", line 406, in hf_raise_for_status
+    response.raise_for_status()
+  File "/usr/local/lib/python3.10/dist-packages/requests/models.py", line 1024, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://huggingface.co/Esquivies/cat-toy/resolve/main/config.json
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/transformers/utils/hub.py", line 398, in cached_file
+    resolved_file = hf_hub_download(
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/file_download.py", line 862, in hf_hub_download
+    return _hf_hub_download_to_cache_dir(
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/file_download.py", line 925, in _hf_hub_download_to_cache_dir
+    (url_to_download, etag, commit_hash, expected_size, head_call_error) = _get_metadata_or_catch_error(
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/file_download.py", line 1376, in _get_metadata_or_catch_error
+    metadata = get_hf_file_metadata(
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/file_download.py", line 1296, in get_hf_file_metadata
+    r = _request_wrapper(
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/file_download.py", line 277, in _request_wrapper
+    response = _request_wrapper(
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/file_download.py", line 301, in _request_wrapper
+    hf_raise_for_status(response)
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/utils/_http.py", line 417, in hf_raise_for_status
+    raise _format(EntryNotFoundError, message, response) from e
+huggingface_hub.errors.EntryNotFoundError: 404 Client Error. (Request ID: Root=1-674e91c6-5a5fce3f3eff4f825c2e8263;8cf645a8-c71b-4de2-9cb5-4c31f139cfd6)
+
+Entry Not Found for url: https://huggingface.co/Esquivies/cat-toy/resolve/main/config.json.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/exceptions.py", line 39, in exception_f
+    return f(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/api.py", line 158, in _model
+    predictions, model = _manager.model(
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/model.py", line 679, in model
+    predictions = m.model.model(project, **kwargs)
+  File "/app/model.py", line 879, in model
+    pipe = pipeline(task, model=model_id)
+  File "/usr/local/lib/python3.10/dist-packages/transformers/pipelines/__init__.py", line 815, in pipeline
+    config = AutoConfig.from_pretrained(
+  File "/usr/local/lib/python3.10/dist-packages/transformers/models/auto/configuration_auto.py", line 1111, in from_pretrained
+    config_dict, unused_kwargs = PretrainedConfig.get_config_dict(pretrained_model_name_or_path, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/transformers/configuration_utils.py", line 633, in get_config_dict
+    config_dict, kwargs = cls._get_config_dict(pretrained_model_name_or_path, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/transformers/configuration_utils.py", line 688, in _get_config_dict
+    resolved_config_file = cached_file(
+  File "/usr/local/lib/python3.10/dist-packages/transformers/utils/hub.py", line 452, in cached_file
+    raise EnvironmentError(
+OSError: Esquivies/cat-toy does not appear to have a file named config.json. Checkout 'https://huggingface.co/Esquivies/cat-toy/main' for available files.
+
+2024-12-03 05:07:56,055 - INFO - Job queue is empty
+2024-12-03 05:07:56,650 - ERROR - Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/utils/_http.py", line 406, in hf_raise_for_status
+    response.raise_for_status()
+  File "/usr/local/lib/python3.10/dist-packages/requests/models.py", line 1024, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://huggingface.co/sd-dreambooth-library/herge-style/resolve/main/config.json
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/transformers/utils/hub.py", line 398, in cached_file
+    resolved_file = hf_hub_download(
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/file_download.py", line 862, in hf_hub_download
+    return _hf_hub_download_to_cache_dir(
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/file_download.py", line 925, in _hf_hub_download_to_cache_dir
+    (url_to_download, etag, commit_hash, expected_size, head_call_error) = _get_metadata_or_catch_error(
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/file_download.py", line 1376, in _get_metadata_or_catch_error
+    metadata = get_hf_file_metadata(
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/file_download.py", line 1296, in get_hf_file_metadata
+    r = _request_wrapper(
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/file_download.py", line 277, in _request_wrapper
+    response = _request_wrapper(
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/file_download.py", line 301, in _request_wrapper
+    hf_raise_for_status(response)
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/utils/_http.py", line 417, in hf_raise_for_status
+    raise _format(EntryNotFoundError, message, response) from e
+huggingface_hub.errors.EntryNotFoundError: 404 Client Error. (Request ID: Root=1-674e922c-74898fac5c7d8dd724fbd183;9a680031-1a78-4086-ae9c-c7903d472c2b)
+
+Entry Not Found for url: https://huggingface.co/sd-dreambooth-library/herge-style/resolve/main/config.json.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/exceptions.py", line 39, in exception_f
+    return f(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/api.py", line 158, in _model
+    predictions, model = _manager.model(
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/model.py", line 679, in model
+    predictions = m.model.model(project, **kwargs)
+  File "/app/model.py", line 879, in model
+    pipe = pipeline(task, model=model_id)
+  File "/usr/local/lib/python3.10/dist-packages/transformers/pipelines/__init__.py", line 815, in pipeline
+    config = AutoConfig.from_pretrained(
+  File "/usr/local/lib/python3.10/dist-packages/transformers/models/auto/configuration_auto.py", line 1111, in from_pretrained
+    config_dict, unused_kwargs = PretrainedConfig.get_config_dict(pretrained_model_name_or_path, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/transformers/configuration_utils.py", line 633, in get_config_dict
+    config_dict, kwargs = cls._get_config_dict(pretrained_model_name_or_path, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/transformers/configuration_utils.py", line 688, in _get_config_dict
+    resolved_config_file = cached_file(
+  File "/usr/local/lib/python3.10/dist-packages/transformers/utils/hub.py", line 452, in cached_file
+    raise EnvironmentError(
+OSError: sd-dreambooth-library/herge-style does not appear to have a file named config.json. Checkout 'https://huggingface.co/sd-dreambooth-library/herge-style/main' for available files.
+
+2024-12-03 05:09:32,420 - INFO - Job queue is empty
+2024-12-03 05:09:33,144 - ERROR - Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/utils/_http.py", line 406, in hf_raise_for_status
+    response.raise_for_status()
+  File "/usr/local/lib/python3.10/dist-packages/requests/models.py", line 1024, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/resolve/main/config.json
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/transformers/utils/hub.py", line 398, in cached_file
+    resolved_file = hf_hub_download(
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/file_download.py", line 862, in hf_hub_download
+    return _hf_hub_download_to_cache_dir(
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/file_download.py", line 925, in _hf_hub_download_to_cache_dir
+    (url_to_download, etag, commit_hash, expected_size, head_call_error) = _get_metadata_or_catch_error(
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/file_download.py", line 1376, in _get_metadata_or_catch_error
+    metadata = get_hf_file_metadata(
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/file_download.py", line 1296, in get_hf_file_metadata
+    r = _request_wrapper(
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/file_download.py", line 277, in _request_wrapper
+    response = _request_wrapper(
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/file_download.py", line 301, in _request_wrapper
+    hf_raise_for_status(response)
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/utils/_http.py", line 417, in hf_raise_for_status
+    raise _format(EntryNotFoundError, message, response) from e
+huggingface_hub.errors.EntryNotFoundError: 404 Client Error. (Request ID: Root=1-674e928d-6de72a383d967b6f0cefef7b;1547e3eb-f2a9-4ed9-be59-2b9355203a53)
+
+Entry Not Found for url: https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/resolve/main/config.json.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/exceptions.py", line 39, in exception_f
+    return f(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/api.py", line 158, in _model
+    predictions, model = _manager.model(
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/model.py", line 679, in model
+    predictions = m.model.model(project, **kwargs)
+  File "/app/model.py", line 879, in model
+    pipe = pipeline(task, model=model_id)
+  File "/usr/local/lib/python3.10/dist-packages/transformers/pipelines/__init__.py", line 815, in pipeline
+    config = AutoConfig.from_pretrained(
+  File "/usr/local/lib/python3.10/dist-packages/transformers/models/auto/configuration_auto.py", line 1111, in from_pretrained
+    config_dict, unused_kwargs = PretrainedConfig.get_config_dict(pretrained_model_name_or_path, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/transformers/configuration_utils.py", line 633, in get_config_dict
+    config_dict, kwargs = cls._get_config_dict(pretrained_model_name_or_path, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/transformers/configuration_utils.py", line 688, in _get_config_dict
+    resolved_config_file = cached_file(
+  File "/usr/local/lib/python3.10/dist-packages/transformers/utils/hub.py", line 452, in cached_file
+    raise EnvironmentError(
+OSError: stabilityai/stable-diffusion-xl-base-1.0 does not appear to have a file named config.json. Checkout 'https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/main' for available files.
+
+2024-12-03 05:12:47,011 - INFO - Job queue is empty
+2024-12-03 05:12:47,683 - ERROR - Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/exceptions.py", line 39, in exception_f
+    return f(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/api.py", line 158, in _model
+    predictions, model = _manager.model(
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/model.py", line 679, in model
+    predictions = m.model.model(project, **kwargs)
+  File "/app/model.py", line 879, in model
+    pipe = pipeline(task, model=model_id)
+  File "/usr/local/lib/python3.10/dist-packages/transformers/pipelines/__init__.py", line 859, in pipeline
+    normalized_task, targeted_task, task_options = check_task(task)
+  File "/usr/local/lib/python3.10/dist-packages/transformers/pipelines/__init__.py", line 543, in check_task
+    return PIPELINE_REGISTRY.check_task(task)
+  File "/usr/local/lib/python3.10/dist-packages/transformers/pipelines/base.py", line 1271, in check_task
+    raise KeyError(
+KeyError: "Unknown task text-to-image, available tasks are ['audio-classification', 'automatic-speech-recognition', 'conversational', 'depth-estimation', 'document-question-answering', 'feature-extraction', 'fill-mask', 'image-classification', 'image-feature-extraction', 'image-segmentation', 'image-to-image', 'image-to-text', 'mask-generation', 'ner', 'object-detection', 'question-answering', 'sentiment-analysis', 'summarization', 'table-question-answering', 'text-classification', 'text-generation', 'text-to-audio', 'text-to-speech', 'text2text-generation', 'token-classification', 'translation', 'video-classification', 'visual-question-answering', 'vqa', 'zero-shot-audio-classification', 'zero-shot-classification', 'zero-shot-image-classification', 'zero-shot-object-detection', 'translation_XX_to_YY']"
+
+2024-12-03 05:13:01,519 - INFO - Job queue is empty
+2024-12-03 05:16:04,306 - INFO - Job queue is empty
+2024-12-03 05:16:04,668 - ERROR - Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/exceptions.py", line 39, in exception_f
+    return f(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/api.py", line 158, in _model
+    predictions, model = _manager.model(
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/model.py", line 679, in model
+    predictions = m.model.model(project, **kwargs)
+  File "/app/model.py", line 879, in model
+    pipe = pipeline(task, model=model_id)
+  File "/usr/local/lib/python3.10/dist-packages/transformers/pipelines/__init__.py", line 859, in pipeline
+    normalized_task, targeted_task, task_options = check_task(task)
+  File "/usr/local/lib/python3.10/dist-packages/transformers/pipelines/__init__.py", line 543, in check_task
+    return PIPELINE_REGISTRY.check_task(task)
+  File "/usr/local/lib/python3.10/dist-packages/transformers/pipelines/base.py", line 1271, in check_task
+    raise KeyError(
+KeyError: "Unknown task text-to-image, available tasks are ['audio-classification', 'automatic-speech-recognition', 'conversational', 'depth-estimation', 'document-question-answering', 'feature-extraction', 'fill-mask', 'image-classification', 'image-feature-extraction', 'image-segmentation', 'image-to-image', 'image-to-text', 'mask-generation', 'ner', 'object-detection', 'question-answering', 'sentiment-analysis', 'summarization', 'table-question-answering', 'text-classification', 'text-generation', 'text-to-audio', 'text-to-speech', 'text2text-generation', 'token-classification', 'translation', 'video-classification', 'visual-question-answering', 'vqa', 'zero-shot-audio-classification', 'zero-shot-classification', 'zero-shot-image-classification', 'zero-shot-object-detection', 'translation_XX_to_YY']"
+
+2024-12-03 05:17:31,531 - INFO - Job queue is empty
+2024-12-03 05:17:32,161 - ERROR - Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/utils/_http.py", line 406, in hf_raise_for_status
+    response.raise_for_status()
+  File "/usr/local/lib/python3.10/dist-packages/requests/models.py", line 1024, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://huggingface.co/stabilityai/sdxl-turbo/resolve/main/config.json
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/transformers/utils/hub.py", line 398, in cached_file
+    resolved_file = hf_hub_download(
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/file_download.py", line 862, in hf_hub_download
+    return _hf_hub_download_to_cache_dir(
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/file_download.py", line 925, in _hf_hub_download_to_cache_dir
+    (url_to_download, etag, commit_hash, expected_size, head_call_error) = _get_metadata_or_catch_error(
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/file_download.py", line 1376, in _get_metadata_or_catch_error
+    metadata = get_hf_file_metadata(
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/file_download.py", line 1296, in get_hf_file_metadata
+    r = _request_wrapper(
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/file_download.py", line 277, in _request_wrapper
+    response = _request_wrapper(
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/file_download.py", line 301, in _request_wrapper
+    hf_raise_for_status(response)
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/utils/_http.py", line 417, in hf_raise_for_status
+    raise _format(EntryNotFoundError, message, response) from e
+huggingface_hub.errors.EntryNotFoundError: 404 Client Error. (Request ID: Root=1-674e946c-511ff2e601a5f85b342712fa;c86405b6-0f36-4286-aa11-af6edd50c86b)
+
+Entry Not Found for url: https://huggingface.co/stabilityai/sdxl-turbo/resolve/main/config.json.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/exceptions.py", line 39, in exception_f
+    return f(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/api.py", line 158, in _model
+    predictions, model = _manager.model(
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/model.py", line 679, in model
+    predictions = m.model.model(project, **kwargs)
+  File "/app/model.py", line 879, in model
+    pipe = pipeline(task, model=model_id)
+  File "/usr/local/lib/python3.10/dist-packages/transformers/pipelines/__init__.py", line 815, in pipeline
+    config = AutoConfig.from_pretrained(
+  File "/usr/local/lib/python3.10/dist-packages/transformers/models/auto/configuration_auto.py", line 1111, in from_pretrained
+    config_dict, unused_kwargs = PretrainedConfig.get_config_dict(pretrained_model_name_or_path, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/transformers/configuration_utils.py", line 633, in get_config_dict
+    config_dict, kwargs = cls._get_config_dict(pretrained_model_name_or_path, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/transformers/configuration_utils.py", line 688, in _get_config_dict
+    resolved_config_file = cached_file(
+  File "/usr/local/lib/python3.10/dist-packages/transformers/utils/hub.py", line 452, in cached_file
+    raise EnvironmentError(
+OSError: stabilityai/sdxl-turbo does not appear to have a file named config.json. Checkout 'https://huggingface.co/stabilityai/sdxl-turbo/main' for available files.
+
+2024-12-03 05:18:33,333 - INFO - Job queue is empty
+2024-12-03 05:18:33,930 - ERROR - Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/utils/_http.py", line 406, in hf_raise_for_status
+    response.raise_for_status()
+  File "/usr/local/lib/python3.10/dist-packages/requests/models.py", line 1024, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://huggingface.co/stabilityai/sdxl-turbo/resolve/main/config.json
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/transformers/utils/hub.py", line 398, in cached_file
+    resolved_file = hf_hub_download(
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/file_download.py", line 862, in hf_hub_download
+    return _hf_hub_download_to_cache_dir(
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/file_download.py", line 925, in _hf_hub_download_to_cache_dir
+    (url_to_download, etag, commit_hash, expected_size, head_call_error) = _get_metadata_or_catch_error(
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/file_download.py", line 1376, in _get_metadata_or_catch_error
+    metadata = get_hf_file_metadata(
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/file_download.py", line 1296, in get_hf_file_metadata
+    r = _request_wrapper(
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/file_download.py", line 277, in _request_wrapper
+    response = _request_wrapper(
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/file_download.py", line 301, in _request_wrapper
+    hf_raise_for_status(response)
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/utils/_http.py", line 417, in hf_raise_for_status
+    raise _format(EntryNotFoundError, message, response) from e
+huggingface_hub.errors.EntryNotFoundError: 404 Client Error. (Request ID: Root=1-674e94a9-4f3ca4cc227fba593f35a505;69424680-6a08-4386-b435-9c15c4183995)
+
+Entry Not Found for url: https://huggingface.co/stabilityai/sdxl-turbo/resolve/main/config.json.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/exceptions.py", line 39, in exception_f
+    return f(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/api.py", line 158, in _model
+    predictions, model = _manager.model(
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/model.py", line 679, in model
+    predictions = m.model.model(project, **kwargs)
+  File "/app/model.py", line 879, in model
+    pipe = pipeline(task, model=model_id)
+  File "/usr/local/lib/python3.10/dist-packages/transformers/pipelines/__init__.py", line 815, in pipeline
+    config = AutoConfig.from_pretrained(
+  File "/usr/local/lib/python3.10/dist-packages/transformers/models/auto/configuration_auto.py", line 1111, in from_pretrained
+    config_dict, unused_kwargs = PretrainedConfig.get_config_dict(pretrained_model_name_or_path, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/transformers/configuration_utils.py", line 633, in get_config_dict
+    config_dict, kwargs = cls._get_config_dict(pretrained_model_name_or_path, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/transformers/configuration_utils.py", line 688, in _get_config_dict
+    resolved_config_file = cached_file(
+  File "/usr/local/lib/python3.10/dist-packages/transformers/utils/hub.py", line 452, in cached_file
+    raise EnvironmentError(
+OSError: stabilityai/sdxl-turbo does not appear to have a file named config.json. Checkout 'https://huggingface.co/stabilityai/sdxl-turbo/main' for available files.
+
+2024-12-03 05:19:18,769 - INFO - Job queue is empty
+2024-12-03 05:19:19,067 - ERROR - Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/utils/_http.py", line 406, in hf_raise_for_status
+    response.raise_for_status()
+  File "/usr/local/lib/python3.10/dist-packages/requests/models.py", line 1024, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 401 Client Error: Unauthorized for url: https://huggingface.co/table-diffusion-v1-5/stable-diffusion-v1-5/resolve/main/config.json
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/transformers/utils/hub.py", line 398, in cached_file
+    resolved_file = hf_hub_download(
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/file_download.py", line 862, in hf_hub_download
+    return _hf_hub_download_to_cache_dir(
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/file_download.py", line 969, in _hf_hub_download_to_cache_dir
+    _raise_on_head_call_error(head_call_error, force_download, local_files_only)
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/file_download.py", line 1484, in _raise_on_head_call_error
+    raise head_call_error
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/file_download.py", line 1376, in _get_metadata_or_catch_error
+    metadata = get_hf_file_metadata(
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/file_download.py", line 1296, in get_hf_file_metadata
+    r = _request_wrapper(
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/file_download.py", line 277, in _request_wrapper
+    response = _request_wrapper(
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/file_download.py", line 301, in _request_wrapper
+    hf_raise_for_status(response)
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/utils/_http.py", line 454, in hf_raise_for_status
+    raise _format(RepositoryNotFoundError, message, response) from e
+huggingface_hub.errors.RepositoryNotFoundError: 401 Client Error. (Request ID: Root=1-674e94d7-2272664f70d40b6d530c5eff;3cc5d90a-d3e1-45f1-b70d-5dc8a5f18cda)
+
+Repository Not Found for url: https://huggingface.co/table-diffusion-v1-5/stable-diffusion-v1-5/resolve/main/config.json.
+Please make sure you specified the correct `repo_id` and `repo_type`.
+If you are trying to access a private or gated repo, make sure you are authenticated.
+Invalid username or password.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/exceptions.py", line 39, in exception_f
+    return f(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/api.py", line 158, in _model
+    predictions, model = _manager.model(
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/model.py", line 679, in model
+    predictions = m.model.model(project, **kwargs)
+  File "/app/model.py", line 879, in model
+    pipe = pipeline(task, model=model_id)
+  File "/usr/local/lib/python3.10/dist-packages/transformers/pipelines/__init__.py", line 779, in pipeline
+    resolved_config_file = cached_file(
+  File "/usr/local/lib/python3.10/dist-packages/transformers/utils/hub.py", line 421, in cached_file
+    raise EnvironmentError(
+OSError: table-diffusion-v1-5/stable-diffusion-v1-5 is not a local folder and is not a valid model identifier listed on 'https://huggingface.co/models'
+If this is a private repository, make sure to pass a token having permission to this repo either by logging in with `huggingface-cli login` or by passing `token=<your_token>`
+
+2024-12-03 05:19:31,072 - INFO - Job queue is empty
+2024-12-03 05:19:31,707 - ERROR - Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/utils/_http.py", line 406, in hf_raise_for_status
+    response.raise_for_status()
+  File "/usr/local/lib/python3.10/dist-packages/requests/models.py", line 1024, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://huggingface.co/stable-diffusion-v1-5/stable-diffusion-v1-5/resolve/main/config.json
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/transformers/utils/hub.py", line 398, in cached_file
+    resolved_file = hf_hub_download(
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/file_download.py", line 862, in hf_hub_download
+    return _hf_hub_download_to_cache_dir(
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/file_download.py", line 925, in _hf_hub_download_to_cache_dir
+    (url_to_download, etag, commit_hash, expected_size, head_call_error) = _get_metadata_or_catch_error(
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/file_download.py", line 1376, in _get_metadata_or_catch_error
+    metadata = get_hf_file_metadata(
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/file_download.py", line 1296, in get_hf_file_metadata
+    r = _request_wrapper(
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/file_download.py", line 277, in _request_wrapper
+    response = _request_wrapper(
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/file_download.py", line 301, in _request_wrapper
+    hf_raise_for_status(response)
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/utils/_http.py", line 417, in hf_raise_for_status
+    raise _format(EntryNotFoundError, message, response) from e
+huggingface_hub.errors.EntryNotFoundError: 404 Client Error. (Request ID: Root=1-674e94e3-55689f676800d83b24eb695e;ed24fd54-cf9e-4758-8b37-6f4ef1770ee4)
+
+Entry Not Found for url: https://huggingface.co/stable-diffusion-v1-5/stable-diffusion-v1-5/resolve/main/config.json.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/exceptions.py", line 39, in exception_f
+    return f(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/api.py", line 158, in _model
+    predictions, model = _manager.model(
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/model.py", line 679, in model
+    predictions = m.model.model(project, **kwargs)
+  File "/app/model.py", line 879, in model
+    pipe = pipeline(task, model=model_id)
+  File "/usr/local/lib/python3.10/dist-packages/transformers/pipelines/__init__.py", line 815, in pipeline
+    config = AutoConfig.from_pretrained(
+  File "/usr/local/lib/python3.10/dist-packages/transformers/models/auto/configuration_auto.py", line 1111, in from_pretrained
+    config_dict, unused_kwargs = PretrainedConfig.get_config_dict(pretrained_model_name_or_path, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/transformers/configuration_utils.py", line 633, in get_config_dict
+    config_dict, kwargs = cls._get_config_dict(pretrained_model_name_or_path, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/transformers/configuration_utils.py", line 688, in _get_config_dict
+    resolved_config_file = cached_file(
+  File "/usr/local/lib/python3.10/dist-packages/transformers/utils/hub.py", line 452, in cached_file
+    raise EnvironmentError(
+OSError: stable-diffusion-v1-5/stable-diffusion-v1-5 does not appear to have a file named config.json. Checkout 'https://huggingface.co/stable-diffusion-v1-5/stable-diffusion-v1-5/main' for available files.
+
+2024-12-03 05:42:57,431 - INFO - Job queue is empty
+2024-12-03 05:43:00,019 - INFO - generated new fontManager
+2024-12-03 05:43:03,103 - ERROR - Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/utils/_http.py", line 406, in hf_raise_for_status
+    response.raise_for_status()
+  File "/usr/local/lib/python3.10/dist-packages/requests/models.py", line 1024, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://huggingface.co/stable-diffusion-v1-5/stable-diffusion-v1-5/resolve/main/config.json
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/transformers/utils/hub.py", line 398, in cached_file
+    resolved_file = hf_hub_download(
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/file_download.py", line 862, in hf_hub_download
+    return _hf_hub_download_to_cache_dir(
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/file_download.py", line 925, in _hf_hub_download_to_cache_dir
+    (url_to_download, etag, commit_hash, expected_size, head_call_error) = _get_metadata_or_catch_error(
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/file_download.py", line 1376, in _get_metadata_or_catch_error
+    metadata = get_hf_file_metadata(
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/file_download.py", line 1296, in get_hf_file_metadata
+    r = _request_wrapper(
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/file_download.py", line 277, in _request_wrapper
+    response = _request_wrapper(
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/file_download.py", line 301, in _request_wrapper
+    hf_raise_for_status(response)
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/utils/_http.py", line 417, in hf_raise_for_status
+    raise _format(EntryNotFoundError, message, response) from e
+huggingface_hub.errors.EntryNotFoundError: 404 Client Error. (Request ID: Root=1-674e9a67-5bc41bc0361749d01f6c3417;17cdc074-a7b9-4718-984a-dbe9e4e6ba67)
+
+Entry Not Found for url: https://huggingface.co/stable-diffusion-v1-5/stable-diffusion-v1-5/resolve/main/config.json.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/exceptions.py", line 39, in exception_f
+    return f(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/api.py", line 158, in _model
+    predictions, model = _manager.model(
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/model.py", line 679, in model
+    predictions = m.model.model(project, **kwargs)
+  File "/app/model.py", line 881, in model
+    pipe = pipeline(task, model=model_id)
+  File "/usr/local/lib/python3.10/dist-packages/transformers/pipelines/__init__.py", line 815, in pipeline
+    config = AutoConfig.from_pretrained(
+  File "/usr/local/lib/python3.10/dist-packages/transformers/models/auto/configuration_auto.py", line 1111, in from_pretrained
+    config_dict, unused_kwargs = PretrainedConfig.get_config_dict(pretrained_model_name_or_path, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/transformers/configuration_utils.py", line 633, in get_config_dict
+    config_dict, kwargs = cls._get_config_dict(pretrained_model_name_or_path, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/transformers/configuration_utils.py", line 688, in _get_config_dict
+    resolved_config_file = cached_file(
+  File "/usr/local/lib/python3.10/dist-packages/transformers/utils/hub.py", line 452, in cached_file
+    raise EnvironmentError(
+OSError: stable-diffusion-v1-5/stable-diffusion-v1-5 does not appear to have a file named config.json. Checkout 'https://huggingface.co/stable-diffusion-v1-5/stable-diffusion-v1-5/main' for available files.
+
+2024-12-03 05:44:53,474 - INFO - Job queue is empty
+2024-12-03 05:49:46,860 - INFO - Job queue is empty
+2024-12-03 05:55:53,702 - INFO - Job queue is empty
+2024-12-03 06:02:01,189 - INFO - Job queue is empty
+2024-12-03 06:13:44,110 - INFO - Job queue is empty
+2024-12-03 06:13:46,824 - INFO - generated new fontManager
+2024-12-03 06:17:18,805 - ERROR - Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/exceptions.py", line 39, in exception_f
+    return f(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/api.py", line 158, in _model
+    predictions, model = _manager.model(
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/model.py", line 679, in model
+    predictions = m.model.model(project, **kwargs)
+  File "/app/model.py", line 1486, in model
+    gr.on(
+  File "/usr/local/lib/python3.10/dist-packages/gradio/events.py", line 288, in on
+    dep, dep_index = Context.root_block.set_event_trigger(
+  File "/usr/local/lib/python3.10/dist-packages/gradio/blocks.py", line 977, in set_event_trigger
+    "inputs": [block._id for block in inputs],
+  File "/usr/local/lib/python3.10/dist-packages/gradio/blocks.py", line 977, in <listcomp>
+    "inputs": [block._id for block in inputs],
+AttributeError: 'tuple' object has no attribute '_id'
+
+2024-12-03 06:19:18,404 - INFO - Job queue is empty
+2024-12-03 06:20:34,418 - ERROR - Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/exceptions.py", line 39, in exception_f
+    return f(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/api.py", line 158, in _model
+    predictions, model = _manager.model(
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/model.py", line 679, in model
+    predictions = m.model.model(project, **kwargs)
+  File "/app/model.py", line 1486, in model
+    gr.on(
+  File "/usr/local/lib/python3.10/dist-packages/gradio/events.py", line 288, in on
+    dep, dep_index = Context.root_block.set_event_trigger(
+  File "/usr/local/lib/python3.10/dist-packages/gradio/blocks.py", line 977, in set_event_trigger
+    "inputs": [block._id for block in inputs],
+  File "/usr/local/lib/python3.10/dist-packages/gradio/blocks.py", line 977, in <listcomp>
+    "inputs": [block._id for block in inputs],
+AttributeError: 'tuple' object has no attribute '_id'
+
+2024-12-03 06:23:43,361 - INFO - Job queue is empty
+2024-12-03 06:23:59,822 - ERROR - Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/exceptions.py", line 39, in exception_f
+    return f(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/api.py", line 158, in _model
+    predictions, model = _manager.model(
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/model.py", line 679, in model
+    predictions = m.model.model(project, **kwargs)
+  File "/app/model.py", line 1486, in model
+    gr.on(
+  File "/usr/local/lib/python3.10/dist-packages/gradio/events.py", line 288, in on
+    dep, dep_index = Context.root_block.set_event_trigger(
+  File "/usr/local/lib/python3.10/dist-packages/gradio/blocks.py", line 977, in set_event_trigger
+    "inputs": [block._id for block in inputs],
+  File "/usr/local/lib/python3.10/dist-packages/gradio/blocks.py", line 977, in <listcomp>
+    "inputs": [block._id for block in inputs],
+AttributeError: 'tuple' object has no attribute '_id'
+
+2024-12-03 06:27:23,505 - INFO - Job queue is empty
+2024-12-03 06:28:28,230 - ERROR - Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/exceptions.py", line 39, in exception_f
+    return f(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/api.py", line 158, in _model
+    predictions, model = _manager.model(
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/model.py", line 679, in model
+    predictions = m.model.model(project, **kwargs)
+  File "/app/model.py", line 1486, in model
+    gr.on(
+  File "/usr/local/lib/python3.10/dist-packages/gradio/events.py", line 288, in on
+    dep, dep_index = Context.root_block.set_event_trigger(
+  File "/usr/local/lib/python3.10/dist-packages/gradio/blocks.py", line 977, in set_event_trigger
+    "inputs": [block._id for block in inputs],
+  File "/usr/local/lib/python3.10/dist-packages/gradio/blocks.py", line 977, in <listcomp>
+    "inputs": [block._id for block in inputs],
+AttributeError: 'tuple' object has no attribute '_id'
+
+2024-12-03 06:29:43,898 - INFO - Job queue is empty
+2024-12-03 06:30:15,515 - ERROR - Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/exceptions.py", line 39, in exception_f
+    return f(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/api.py", line 158, in _model
+    predictions, model = _manager.model(
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/model.py", line 679, in model
+    predictions = m.model.model(project, **kwargs)
+  File "/app/model.py", line 1486, in model
+    gr.on(
+  File "/usr/local/lib/python3.10/dist-packages/gradio/events.py", line 288, in on
+    dep, dep_index = Context.root_block.set_event_trigger(
+  File "/usr/local/lib/python3.10/dist-packages/gradio/blocks.py", line 977, in set_event_trigger
+    "inputs": [block._id for block in inputs],
+  File "/usr/local/lib/python3.10/dist-packages/gradio/blocks.py", line 977, in <listcomp>
+    "inputs": [block._id for block in inputs],
+AttributeError: 'tuple' object has no attribute '_id'
+
+2024-12-03 06:38:21,898 - INFO - Job queue is empty
+2024-12-03 06:38:24,027 - INFO - generated new fontManager
+2024-12-03 06:41:32,152 - ERROR - Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/exceptions.py", line 39, in exception_f
+    return f(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/api.py", line 158, in _model
+    predictions, model = _manager.model(
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/model.py", line 679, in model
+    predictions = m.model.model(project, **kwargs)
+  File "/app/model.py", line 1500, in model
+    gr.on(
+  File "/usr/local/lib/python3.10/dist-packages/gradio/events.py", line 288, in on
+    dep, dep_index = Context.root_block.set_event_trigger(
+  File "/usr/local/lib/python3.10/dist-packages/gradio/blocks.py", line 977, in set_event_trigger
+    "inputs": [block._id for block in inputs],
+  File "/usr/local/lib/python3.10/dist-packages/gradio/blocks.py", line 977, in <listcomp>
+    "inputs": [block._id for block in inputs],
+AttributeError: 'tuple' object has no attribute '_id'
+
+2024-12-04 02:51:01,356 - INFO - Job queue is empty
+2024-12-04 02:51:03,606 - INFO - generated new fontManager
+2024-12-04 02:56:20,504 - INFO - Job queue is empty
+2024-12-04 03:04:51,616 - INFO - Job queue is empty
+2024-12-04 03:13:07,473 - INFO - Job queue is empty
+2024-12-04 03:24:34,956 - INFO - Job queue is empty
+2024-12-04 03:47:44,645 - INFO - Job queue is empty
+2024-12-04 03:47:46,283 - INFO - generated new fontManager
+2024-12-04 04:05:29,966 - INFO - Job queue is empty
+2024-12-04 04:39:48,420 - INFO - Job queue is empty
+2024-12-04 04:39:51,695 - INFO - generated new fontManager
+2024-12-04 05:03:35,157 - INFO - Job queue is empty
+2024-12-04 05:03:39,418 - INFO - generated new fontManager
+2024-12-04 05:18:11,008 - INFO - Job queue is empty
+2024-12-04 05:18:13,053 - INFO - generated new fontManager
+2024-12-04 05:38:48,653 - INFO - Job queue is empty
+2024-12-04 05:38:51,849 - INFO - generated new fontManager
+2024-12-04 05:48:24,449 - INFO - Job queue is empty
+2024-12-04 05:48:26,775 - INFO - generated new fontManager
+2024-12-04 05:59:14,891 - INFO - Job queue is empty
+2024-12-04 05:59:18,112 - INFO - generated new fontManager
+2024-12-04 06:09:14,496 - INFO - Job queue is empty
+2024-12-04 06:09:16,049 - INFO - generated new fontManager
+2024-12-04 06:24:16,242 - INFO - Job queue is empty
+2024-12-04 06:24:17,672 - INFO - generated new fontManager
+2024-12-04 06:34:05,274 - INFO - Job queue is empty
+2024-12-04 06:34:06,970 - INFO - generated new fontManager
+2024-12-04 06:47:50,871 - INFO - Job queue is empty
+2024-12-04 06:47:52,225 - INFO - generated new fontManager
+2024-12-04 07:02:05,104 - INFO - Job queue is empty
+2024-12-04 07:02:06,835 - INFO - generated new fontManager
+2024-12-04 07:11:56,266 - INFO - Job queue is empty
+2024-12-04 07:11:58,410 - INFO - generated new fontManager
+2024-12-04 07:20:38,471 - INFO - Job queue is empty
+2024-12-04 07:20:40,978 - INFO - generated new fontManager
+2024-12-04 07:22:52,188 - WARNING - Error while downloading from https://cdn-lfs.hf.co/iarfmoose/t5-base-question-generator/c8c0b7392e5f8c408d67cac8414837e899a09fc6903595e1d62aa6fc810d3480?response-content-disposition=inline%3B+filename*%3DUTF-8%27%27pytorch_model.bin%3B+filename%3D%22pytorch_model.bin%22%3B&response-content-type=application%2Foctet-stream&Expires=1733556051&Policy=eyJTdGF0ZW1lbnQiOlt7IkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTczMzU1NjA1MX19LCJSZXNvdXJjZSI6Imh0dHBzOi8vY2RuLWxmcy5oZi5jby9pYXJmbW9vc2UvdDUtYmFzZS1xdWVzdGlvbi1nZW5lcmF0b3IvYzhjMGI3MzkyZTVmOGM0MDhkNjdjYWM4NDE0ODM3ZTg5OWEwOWZjNjkwMzU5NWUxZDYyYWE2ZmM4MTBkMzQ4MD9yZXNwb25zZS1jb250ZW50LWRpc3Bvc2l0aW9uPSomcmVzcG9uc2UtY29udGVudC10eXBlPSoifV19&Signature=TuPSS4Phuk1Pcxe2vl9WAVZIE9v20TKdT2db-r-diFfArfDJ57Z4rQImBZfjBcPzxzfSqNLrqF3MiOw5AGVlNVBG9dq0S8OEMrKv6EP6iLkviJPIg0l--yRhemsXLiwsdRv5MIXmhmKpRpcw9ffy2BSmP1t6Zpm0izzgjHolWw3QuNLKnU7qQaqzQjP7rF6VM1RS3t0RLK55nbBvWE%7EoElA9GkM2Yef1cH1fNH60w8gxPKNSPmX4iYLTIXb4-O10%7ETA7og6donAIv75gEbxeAfQBzarC5gPF10uD%7Epdfyz9nSUllrjg-ZZ-GrMhAPvD3Be3qC23CS4hL6z48xZTT3w__&Key-Pair-Id=K3RPWS32NSSJCE: HTTPSConnectionPool(host='cdn-lfs.hf.co', port=443): Read timed out.
+Trying to resume download...
+2024-12-04 07:23:01,269 - ERROR - Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/urllib3/response.py", line 425, in _error_catcher
+    yield
+  File "/usr/lib/python3/dist-packages/urllib3/response.py", line 507, in read
+    data = self._fp.read(amt) if not fp_closed else b""
+  File "/usr/lib/python3.10/http/client.py", line 466, in read
+    s = self.fp.read(amt)
+  File "/usr/lib/python3.10/socket.py", line 705, in readinto
+    return self._sock.recv_into(b)
+  File "/usr/lib/python3.10/ssl.py", line 1307, in recv_into
+    return self.read(nbytes, buffer)
+  File "/usr/lib/python3.10/ssl.py", line 1163, in read
+    return self._sslobj.read(len, buffer)
+TimeoutError: The read operation timed out
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/requests/models.py", line 820, in generate
+    yield from self.raw.stream(chunk_size, decode_content=True)
+  File "/usr/lib/python3/dist-packages/urllib3/response.py", line 564, in stream
+    data = self.read(amt=amt, decode_content=decode_content)
+  File "/usr/lib/python3/dist-packages/urllib3/response.py", line 500, in read
+    with self._error_catcher():
+  File "/usr/lib/python3.10/contextlib.py", line 153, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "/usr/lib/python3/dist-packages/urllib3/response.py", line 430, in _error_catcher
+    raise ReadTimeoutError(self._pool, None, "Read timed out.")
+urllib3.exceptions.ReadTimeoutError: HTTPSConnectionPool(host='cdn-lfs.hf.co', port=443): Read timed out.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/file_download.py", line 454, in http_get
+    for chunk in r.iter_content(chunk_size=constants.DOWNLOAD_CHUNK_SIZE):
+  File "/usr/local/lib/python3.10/dist-packages/requests/models.py", line 826, in generate
+    raise ConnectionError(e)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='cdn-lfs.hf.co', port=443): Read timed out.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/urllib3/connection.py", line 159, in _new_conn
+    conn = connection.create_connection(
+  File "/usr/lib/python3/dist-packages/urllib3/util/connection.py", line 61, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+  File "/usr/lib/python3.10/socket.py", line 955, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+socket.gaierror: [Errno -3] Temporary failure in name resolution
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/urllib3/connectionpool.py", line 666, in urlopen
+    httplib_response = self._make_request(
+  File "/usr/lib/python3/dist-packages/urllib3/connectionpool.py", line 377, in _make_request
+    self._validate_conn(conn)
+  File "/usr/lib/python3/dist-packages/urllib3/connectionpool.py", line 1001, in _validate_conn
+    conn.connect()
+  File "/usr/lib/python3/dist-packages/urllib3/connection.py", line 314, in connect
+    conn = self._new_conn()
+  File "/usr/lib/python3/dist-packages/urllib3/connection.py", line 171, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: <urllib3.connection.VerifiedHTTPSConnection object at 0x7f745071f490>: Failed to establish a new connection: [Errno -3] Temporary failure in name resolution
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/requests/adapters.py", line 667, in send
+    resp = conn.urlopen(
+  File "/usr/lib/python3/dist-packages/urllib3/connectionpool.py", line 720, in urlopen
+    retries = retries.increment(
+  File "/usr/lib/python3/dist-packages/urllib3/util/retry.py", line 436, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='cdn-lfs.hf.co', port=443): Max retries exceeded with url: /iarfmoose/t5-base-question-generator/c8c0b7392e5f8c408d67cac8414837e899a09fc6903595e1d62aa6fc810d3480?response-content-disposition=inline%3B+filename*%3DUTF-8%27%27pytorch_model.bin%3B+filename%3D%22pytorch_model.bin%22%3B&response-content-type=application%2Foctet-stream&Expires=1733556051&Policy=eyJTdGF0ZW1lbnQiOlt7IkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTczMzU1NjA1MX19LCJSZXNvdXJjZSI6Imh0dHBzOi8vY2RuLWxmcy5oZi5jby9pYXJmbW9vc2UvdDUtYmFzZS1xdWVzdGlvbi1nZW5lcmF0b3IvYzhjMGI3MzkyZTVmOGM0MDhkNjdjYWM4NDE0ODM3ZTg5OWEwOWZjNjkwMzU5NWUxZDYyYWE2ZmM4MTBkMzQ4MD9yZXNwb25zZS1jb250ZW50LWRpc3Bvc2l0aW9uPSomcmVzcG9uc2UtY29udGVudC10eXBlPSoifV19&Signature=TuPSS4Phuk1Pcxe2vl9WAVZIE9v20TKdT2db-r-diFfArfDJ57Z4rQImBZfjBcPzxzfSqNLrqF3MiOw5AGVlNVBG9dq0S8OEMrKv6EP6iLkviJPIg0l--yRhemsXLiwsdRv5MIXmhmKpRpcw9ffy2BSmP1t6Zpm0izzgjHolWw3QuNLKnU7qQaqzQjP7rF6VM1RS3t0RLK55nbBvWE~oElA9GkM2Yef1cH1fNH60w8gxPKNSPmX4iYLTIXb4-O10~TA7og6donAIv75gEbxeAfQBzarC5gPF10uD~pdfyz9nSUllrjg-ZZ-GrMhAPvD3Be3qC23CS4hL6z48xZTT3w__&Key-Pair-Id=K3RPWS32NSSJCE (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x7f745071f490>: Failed to establish a new connection: [Errno -3] Temporary failure in name resolution'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/exceptions.py", line 39, in exception_f
+    return f(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/api.py", line 158, in _model
+    predictions, model = _manager.model(
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/model.py", line 679, in model
+    predictions = m.model.model(project, **kwargs)
+  File "/app/model.py", line 1397, in model
+    qg = QuestionGenerator()
+  File "/app/questiongenerator.py", line 36, in __init__
+    self.qg_model = AutoModelForSeq2SeqLM.from_pretrained(QG_PRETRAINED)
+  File "/usr/local/lib/python3.10/dist-packages/transformers/models/auto/auto_factory.py", line 561, in from_pretrained
+    return model_class.from_pretrained(
+  File "/usr/local/lib/python3.10/dist-packages/transformers/modeling_utils.py", line 3193, in from_pretrained
+    resolved_archive_file = cached_file(
+  File "/usr/local/lib/python3.10/dist-packages/transformers/utils/hub.py", line 398, in cached_file
+    resolved_file = hf_hub_download(
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/file_download.py", line 862, in hf_hub_download
+    return _hf_hub_download_to_cache_dir(
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/file_download.py", line 1011, in _hf_hub_download_to_cache_dir
+    _download_to_tmp_and_move(
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/file_download.py", line 1545, in _download_to_tmp_and_move
+    http_get(
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/file_download.py", line 471, in http_get
+    return http_get(
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/file_download.py", line 368, in http_get
+    r = _request_wrapper(
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/file_download.py", line 300, in _request_wrapper
+    response = get_session().request(method=method, url=url, **params)
+  File "/usr/local/lib/python3.10/dist-packages/requests/sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/requests/sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/huggingface_hub/utils/_http.py", line 93, in send
+    return super().send(request, *args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/requests/adapters.py", line 700, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: (MaxRetryError("HTTPSConnectionPool(host='cdn-lfs.hf.co', port=443): Max retries exceeded with url: /iarfmoose/t5-base-question-generator/c8c0b7392e5f8c408d67cac8414837e899a09fc6903595e1d62aa6fc810d3480?response-content-disposition=inline%3B+filename*%3DUTF-8%27%27pytorch_model.bin%3B+filename%3D%22pytorch_model.bin%22%3B&response-content-type=application%2Foctet-stream&Expires=1733556051&Policy=eyJTdGF0ZW1lbnQiOlt7IkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTczMzU1NjA1MX19LCJSZXNvdXJjZSI6Imh0dHBzOi8vY2RuLWxmcy5oZi5jby9pYXJmbW9vc2UvdDUtYmFzZS1xdWVzdGlvbi1nZW5lcmF0b3IvYzhjMGI3MzkyZTVmOGM0MDhkNjdjYWM4NDE0ODM3ZTg5OWEwOWZjNjkwMzU5NWUxZDYyYWE2ZmM4MTBkMzQ4MD9yZXNwb25zZS1jb250ZW50LWRpc3Bvc2l0aW9uPSomcmVzcG9uc2UtY29udGVudC10eXBlPSoifV19&Signature=TuPSS4Phuk1Pcxe2vl9WAVZIE9v20TKdT2db-r-diFfArfDJ57Z4rQImBZfjBcPzxzfSqNLrqF3MiOw5AGVlNVBG9dq0S8OEMrKv6EP6iLkviJPIg0l--yRhemsXLiwsdRv5MIXmhmKpRpcw9ffy2BSmP1t6Zpm0izzgjHolWw3QuNLKnU7qQaqzQjP7rF6VM1RS3t0RLK55nbBvWE~oElA9GkM2Yef1cH1fNH60w8gxPKNSPmX4iYLTIXb4-O10~TA7og6donAIv75gEbxeAfQBzarC5gPF10uD~pdfyz9nSUllrjg-ZZ-GrMhAPvD3Be3qC23CS4hL6z48xZTT3w__&Key-Pair-Id=K3RPWS32NSSJCE (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x7f745071f490>: Failed to establish a new connection: [Errno -3] Temporary failure in name resolution'))"), '(Request ID: a684bf59-1d74-4fd5-861e-de757e60abd5)')
+
+2024-12-04 07:24:17,277 - INFO - Job queue is empty
+2024-12-04 08:12:08,305 - INFO - Job queue is empty
+2024-12-04 08:12:12,232 - INFO - generated new fontManager
+2024-12-04 11:05:01,205 - INFO - Job queue is empty
+2024-12-04 11:05:02,680 - INFO - generated new fontManager
+2024-12-04 11:09:04,162 - ERROR - Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/exceptions.py", line 39, in exception_f
+    return f(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/api.py", line 158, in _model
+    predictions, model = _manager.model(
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/model.py", line 679, in model
+    predictions = m.model.model(project, **kwargs)
+  File "/app/model.py", line 1771, in model
+    output_text = gr.Interface(video_identity,
+TypeError: Interface.__init__() missing 1 required positional argument: 'outputs'
+
+2024-12-04 11:10:41,313 - INFO - Job queue is empty
+2024-12-04 11:11:04,181 - ERROR - Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/exceptions.py", line 39, in exception_f
+    return f(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/api.py", line 158, in _model
+    predictions, model = _manager.model(
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/model.py", line 679, in model
+    predictions = m.model.model(project, **kwargs)
+  File "/app/model.py", line 1771, in model
+    output_text = gr.Interface(video_identity,
+TypeError: Interface.__init__() missing 1 required positional argument: 'outputs'
+
+2024-12-04 11:16:16,268 - INFO - Job queue is empty
+2024-12-04 11:16:17,966 - INFO - generated new fontManager
+2024-12-04 11:23:33,499 - INFO - Job queue is empty
+2024-12-04 11:33:40,575 - INFO - Job queue is empty
+2024-12-04 11:33:41,670 - INFO - generated new fontManager
+2024-12-04 11:43:37,348 - INFO - Job queue is empty
+2024-12-04 11:57:48,893 - INFO - Job queue is empty
+2024-12-04 11:57:51,396 - INFO - generated new fontManager
+2024-12-04 12:10:50,362 - INFO - Job queue is empty
+2024-12-04 12:11:43,575 - INFO - Job queue is empty
+2024-12-04 12:31:58,669 - INFO - Job queue is empty
+2024-12-04 12:32:00,406 - INFO - generated new fontManager
+2024-12-04 12:39:59,323 - INFO - Job queue is empty
+2024-12-04 12:42:15,128 - INFO - Job queue is empty
+2024-12-04 12:45:18,211 - INFO - Job queue is empty
+2024-12-04 12:48:42,664 - INFO - Job queue is empty
+2024-12-04 12:51:27,440 - INFO - Job queue is empty
+2024-12-04 12:53:33,377 - INFO - Job queue is empty
+2024-12-04 13:05:32,433 - INFO - Job queue is empty
+2024-12-04 13:05:36,943 - INFO - generated new fontManager
+2024-12-05 01:46:31,362 - INFO - Job queue is empty
+2024-12-05 01:46:33,947 - INFO - generated new fontManager
+2024-12-05 02:20:06,484 - INFO - Job queue is empty
+2024-12-05 02:20:08,708 - INFO - generated new fontManager
+2024-12-05 02:20:12,249 - ERROR - Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/exceptions.py", line 39, in exception_f
+    return f(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/api.py", line 158, in _model
+    predictions, model = _manager.model(
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/model.py", line 679, in model
+    predictions = m.model.model(project, **kwargs)
+  File "/app/model.py", line 1282, in model
+    TEXT_SOURCE_LANGUAGE_NAMES = sorted([language_code_to_name[code] for code in text_source_language_codes])
+  File "/app/model.py", line 1282, in <listcomp>
+    TEXT_SOURCE_LANGUAGE_NAMES = sorted([language_code_to_name[code] for code in text_source_language_codes])
+KeyError: 'afr'
+
+2024-12-05 02:31:17,419 - INFO - Job queue is empty
+2024-12-05 02:31:19,052 - INFO - generated new fontManager
+2024-12-05 02:38:29,167 - INFO - Job queue is empty
+2024-12-05 02:40:48,552 - INFO - Job queue is empty
+2024-12-05 02:42:50,658 - INFO - Job queue is empty
+2024-12-05 02:45:50,058 - INFO - Job queue is empty
+2024-12-05 03:32:57,502 - INFO - Job queue is empty
+2024-12-05 03:33:01,449 - INFO - generated new fontManager
+2024-12-06 01:52:10,454 - INFO - Job queue is empty
+2024-12-06 01:52:13,437 - INFO - generated new fontManager
+2024-12-06 01:52:15,739 - ERROR - Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/exceptions.py", line 39, in exception_f
+    return f(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/api.py", line 170, in _model_trial
+    predictions, model = _manager.model_trial(
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/model.py", line 695, in model_trial
+    predictions = m.model.model_trial(project, **kwargs)
+  File "/app/model.py", line 2291, in model_trial
+    datasets = [(f"dataset{i}", name) for i, name in enumerate(os.listdir('./my_ml_backend/datasets'))]
+FileNotFoundError: [Errno 2] No such file or directory: './my_ml_backend/datasets'
+
+2024-12-06 02:01:10,226 - INFO - Job queue is empty
+2024-12-06 02:01:13,060 - INFO - generated new fontManager
+2024-12-06 02:01:17,812 - ERROR - Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/exceptions.py", line 39, in exception_f
+    return f(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/api.py", line 170, in _model_trial
+    predictions, model = _manager.model_trial(
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/model.py", line 695, in model_trial
+    predictions = m.model.model_trial(project, **kwargs)
+  File "/app/model.py", line 2291, in model_trial
+    datasets = [(f"dataset{i}", name) for i, name in enumerate(os.listdir('./datasets'))]
+FileNotFoundError: [Errno 2] No such file or directory: './datasets'
+
+2024-12-06 02:10:32,595 - INFO - Job queue is empty
+2024-12-06 02:10:35,750 - INFO - generated new fontManager
+2024-12-06 02:29:45,061 - INFO - Job queue is empty
+2024-12-06 02:29:48,745 - INFO - generated new fontManager
+2024-12-06 02:49:01,789 - INFO - Job queue is empty
+2024-12-06 02:49:03,521 - INFO - generated new fontManager
+2024-12-06 03:06:35,919 - INFO - Job queue is empty
+2024-12-06 03:06:38,057 - INFO - generated new fontManager
+2024-12-06 03:06:39,857 - ERROR - Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/exceptions.py", line 39, in exception_f
+    return f(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/api.py", line 170, in _model_trial
+    predictions, model = _manager.model_trial(
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/model.py", line 695, in model_trial
+    predictions = m.model.model_trial(project, **kwargs)
+  File "/app/model.py", line 2314, in model_trial
+    gr.Button("Trial Train", variant="primary").click(trial_training, dataset_choosen,inputs=[file_upload,dataset_id,model_id,dataset_choosen],outputs=[console_logs])
+TypeError: EventListenerMethod.__call__() got multiple values for argument 'inputs'
+
+2024-12-06 03:16:42,935 - INFO - Job queue is empty
+2024-12-06 03:16:44,741 - INFO - generated new fontManager
+2024-12-06 03:38:43,848 - INFO - Job queue is empty
+2024-12-06 03:38:45,708 - INFO - generated new fontManager
+2024-12-06 03:44:48,641 - INFO - Job queue is empty
+2024-12-06 03:44:50,529 - INFO - generated new fontManager
+2024-12-06 03:53:03,570 - INFO - Job queue is empty
+2024-12-06 03:53:05,668 - INFO - generated new fontManager
+2024-12-06 03:53:08,215 - ERROR - Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/exceptions.py", line 39, in exception_f
+    return f(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/api.py", line 170, in _model_trial
+    predictions, model = _manager.model_trial(
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/model.py", line 695, in model_trial
+    predictions = m.model.model_trial(project, **kwargs)
+  File "/app/model.py", line 2323, in model_trial
+    gradio_app, local_url, share_url = demo.launch(share=True, quiet=True, prevent_thread_lock=True, server_name='0.0.0.0',show_error=True,queue=gr.Queue())
+AttributeError: module 'gradio' has no attribute 'Queue'
+
+2024-12-06 04:04:58,073 - INFO - Job queue is empty
+2024-12-06 04:05:00,302 - INFO - HTTP Request: GET https://api.gradio.app/gradio-messaging/en "HTTP/1.1 200 OK"
+2024-12-06 04:05:02,077 - ERROR - Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/exceptions.py", line 39, in exception_f
+    return f(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/api.py", line 170, in _model_trial
+    predictions, model = _manager.model_trial(
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/model.py", line 695, in model_trial
+    predictions = m.model.model_trial(project, **kwargs)
+  File "/app/model.py", line 2289, in model_trial
+    gr.Interface(predict, gr.Image(elem_classes=["upload_image"], sources="upload", container = False, height = 345,show_label = False),
+  File "/usr/local/lib/python3.10/dist-packages/gradio/interface.py", line 409, in __init__
+    raise ValueError(
+ValueError: Invalid value for `flagging_mode` parameter.Must be: 'auto', 'manual', or 'never'.
+
+2024-12-06 04:05:02,666 - INFO - HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2024-12-06 04:05:02,806 - INFO - HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2024-12-06 04:12:47,018 - INFO - Job queue is empty
+2024-12-06 04:12:49,145 - INFO - HTTP Request: GET https://api.gradio.app/gradio-messaging/en "HTTP/1.1 200 OK"
+2024-12-06 04:12:52,059 - ERROR - Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/exceptions.py", line 39, in exception_f
+    return f(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/api.py", line 170, in _model_trial
+    predictions, model = _manager.model_trial(
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/model.py", line 695, in model_trial
+    predictions = m.model.model_trial(project, **kwargs)
+  File "/app/model.py", line 2289, in model_trial
+    gr.Interface(predict, gr.Image(elem_classes=["upload_image"], sources="upload", container = False, height = 345,show_label = False),
+  File "/usr/local/lib/python3.10/dist-packages/gradio/interface.py", line 409, in __init__
+    raise ValueError(
+ValueError: Invalid value for `flagging_mode` parameter.Must be: 'auto', 'manual', or 'never'.
+
+2024-12-06 04:12:52,604 - INFO - HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2024-12-06 04:12:52,744 - INFO - HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2024-12-06 04:19:40,671 - INFO - Job queue is empty
+2024-12-06 04:19:43,014 - INFO - HTTP Request: GET https://api.gradio.app/gradio-messaging/en "HTTP/1.1 200 OK"
+2024-12-06 04:19:46,268 - ERROR - Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/exceptions.py", line 39, in exception_f
+    return f(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/api.py", line 170, in _model_trial
+    predictions, model = _manager.model_trial(
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/model.py", line 695, in model_trial
+    predictions = m.model.model_trial(project, **kwargs)
+  File "/app/model.py", line 2304, in model_trial
+    gr.Button("Download this dataset", variant="primary").click(download_btn, gr.HTML(),weight=60)
+TypeError: EventListener._setup.<locals>.event_trigger() got an unexpected keyword argument 'weight'
+
+2024-12-06 04:19:46,893 - INFO - HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2024-12-06 04:25:20,810 - INFO - Job queue is empty
+2024-12-06 04:25:23,166 - INFO - HTTP Request: GET https://api.gradio.app/gradio-messaging/en "HTTP/1.1 200 OK"
+2024-12-06 04:25:25,777 - ERROR - Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/exceptions.py", line 39, in exception_f
+    return f(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/api.py", line 170, in _model_trial
+    predictions, model = _manager.model_trial(
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/model.py", line 695, in model_trial
+    predictions = m.model.model_trial(project, **kwargs)
+  File "/app/model.py", line 2313, in model_trial
+    console_logs= gr.Code(label="", language="shell", elem_classes=["upload_image"], container=False,height=402)
+  File "/usr/local/lib/python3.10/dist-packages/gradio/component_meta.py", line 179, in wrapper
+    return fn(self, **kwargs)
+TypeError: Code.__init__() got an unexpected keyword argument 'height'
+
+2024-12-06 04:25:26,441 - INFO - HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2024-12-06 04:32:55,362 - INFO - Job queue is empty
+2024-12-06 04:32:57,763 - INFO - HTTP Request: GET https://api.gradio.app/gradio-messaging/en "HTTP/1.1 200 OK"
+2024-12-06 04:33:01,004 - ERROR - Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/exceptions.py", line 39, in exception_f
+    return f(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/api.py", line 170, in _model_trial
+    predictions, model = _manager.model_trial(
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/model.py", line 695, in model_trial
+    predictions = m.model.model_trial(project, **kwargs)
+  File "/app/model.py", line 2318, in model_trial
+    gr.on(
+TypeError: on() got an unexpected keyword argument 'every'
+
+2024-12-06 04:33:01,647 - INFO - HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2024-12-06 04:39:09,190 - INFO - Job queue is empty
+2024-12-06 04:39:11,411 - INFO - HTTP Request: GET https://api.gradio.app/gradio-messaging/en "HTTP/1.1 200 OK"
+2024-12-06 04:39:15,021 - ERROR - Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/exceptions.py", line 39, in exception_f
+    return f(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/api.py", line 170, in _model_trial
+    predictions, model = _manager.model_trial(
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/model.py", line 695, in model_trial
+    predictions = m.model.model_trial(project, **kwargs)
+  File "/app/model.py", line 2324, in model_trial
+    gradio_app, local_url, share_url = demo.launch(share=True, quiet=True, prevent_thread_lock=True, server_name='0.0.0.0',show_error=True,queue=gr.Queue())
+AttributeError: module 'gradio' has no attribute 'Queue'
+
+2024-12-06 04:39:15,439 - INFO - HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2024-12-06 04:52:42,799 - INFO - Job queue is empty
+2024-12-06 04:52:48,638 - INFO - HTTP Request: GET http://localhost:7860/gradio_api/startup-events "HTTP/1.1 200 OK"
+2024-12-06 04:52:48,647 - INFO - HTTP Request: GET https://api.gradio.app/gradio-messaging/en "HTTP/1.1 200 OK"
+2024-12-06 04:52:48,677 - INFO - HTTP Request: HEAD http://localhost:7860/ "HTTP/1.1 200 OK"
+2024-12-06 04:52:48,838 - INFO - HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2024-12-06 04:52:49,499 - INFO - HTTP Request: GET https://api.gradio.app/v3/tunnel-request "HTTP/1.1 200 OK"
+2024-12-06 04:52:49,673 - INFO - HTTP Request: GET https://cdn-media.huggingface.co/frpc-gradio-0.3/frpc_linux_amd64 "HTTP/1.1 200 OK"
+2024-12-06 04:53:20,144 - INFO - Connected to server
+2024-12-06 04:53:20,149 - INFO - Connected to server
+2024-12-06 04:53:20,339 - INFO - Subscribed to channel
+2024-12-06 04:53:20,340 - INFO - Subscribed to channel
+2024-12-06 04:53:36,335 - INFO - Connected to server
+2024-12-06 04:53:36,630 - INFO - Subscribed to channel
+2024-12-06 04:53:37,689 - INFO - Connected to server
+2024-12-06 04:53:37,874 - INFO - Subscribed to channel
+2024-12-06 04:53:43,945 - ERROR - Task was destroyed but it is pending!
+task: <Task pending name='Task-79' coro=<WebSocketCommonProtocol.transfer_data() running at /usr/local/lib/python3.10/dist-packages/websockets/legacy/protocol.py:959> wait_for=<Future pending cb=[Task.task_wakeup()]> cb=[Task.task_wakeup(), _wait.<locals>._on_completion() at /usr/lib/python3.10/asyncio/tasks.py:475]>
+2024-12-06 04:53:43,948 - ERROR - Task was destroyed but it is pending!
+task: <Task pending name='Task-80' coro=<WebSocketCommonProtocol.keepalive_ping() running at /usr/local/lib/python3.10/dist-packages/websockets/legacy/protocol.py:1250> wait_for=<Future pending cb=[Task.task_wakeup()]>>
+2024-12-06 04:53:43,951 - ERROR - Task was destroyed but it is pending!
+task: <Task pending name='Task-81' coro=<WebSocketCommonProtocol.close_connection() running at /usr/local/lib/python3.10/dist-packages/websockets/legacy/protocol.py:1302> wait_for=<Task pending name='Task-79' coro=<WebSocketCommonProtocol.transfer_data() running at /usr/local/lib/python3.10/dist-packages/websockets/legacy/protocol.py:959> wait_for=<Future pending cb=[Task.task_wakeup()]> cb=[Task.task_wakeup(), _wait.<locals>._on_completion() at /usr/lib/python3.10/asyncio/tasks.py:475]>>
+2024-12-06 04:53:43,952 - ERROR - Task was destroyed but it is pending!
+task: <Task pending name='Task-84' coro=<WebSocketCommonProtocol.transfer_data() running at /usr/local/lib/python3.10/dist-packages/websockets/legacy/protocol.py:959> wait_for=<Future pending cb=[Task.task_wakeup()]> cb=[Task.task_wakeup(), _wait.<locals>._on_completion() at /usr/lib/python3.10/asyncio/tasks.py:475]>
+2024-12-06 04:53:43,958 - ERROR - Task was destroyed but it is pending!
+task: <Task pending name='Task-85' coro=<WebSocketCommonProtocol.keepalive_ping() running at /usr/local/lib/python3.10/dist-packages/websockets/legacy/protocol.py:1250> wait_for=<Future pending cb=[Task.task_wakeup()]>>
+2024-12-06 04:53:43,959 - ERROR - Task was destroyed but it is pending!
+task: <Task pending name='Task-86' coro=<WebSocketCommonProtocol.close_connection() running at /usr/local/lib/python3.10/dist-packages/websockets/legacy/protocol.py:1302> wait_for=<Task pending name='Task-84' coro=<WebSocketCommonProtocol.transfer_data() running at /usr/local/lib/python3.10/dist-packages/websockets/legacy/protocol.py:959> wait_for=<Future pending cb=[Task.task_wakeup()]> cb=[Task.task_wakeup(), _wait.<locals>._on_completion() at /usr/lib/python3.10/asyncio/tasks.py:475]>>
+2024-12-06 04:53:43,983 - ERROR - Task was destroyed but it is pending!
+task: <Task pending name='Task-83' coro=<Client._process_messages() running at /usr/local/lib/python3.10/dist-packages/centrifuge/client.py:1269> wait_for=<Future pending cb=[Task.task_wakeup()]>>
+2024-12-06 04:53:44,003 - ERROR - Task was destroyed but it is pending!
+task: <Task pending name='Task-87' coro=<Client._listen() running at /usr/local/lib/python3.10/dist-packages/centrifuge/client.py:1283> wait_for=<Future pending cb=[Task.task_wakeup()]>>
+2024-12-06 04:53:44,033 - ERROR - Task was destroyed but it is pending!
+task: <Task pending name='Task-88' coro=<Client._process_messages() running at /usr/local/lib/python3.10/dist-packages/centrifuge/client.py:1269> wait_for=<Future pending cb=[Task.task_wakeup()]>>
+2024-12-06 04:53:44,042 - ERROR - Task was destroyed but it is pending!
+task: <Task pending name='Task-82' coro=<Client._listen() running at /usr/local/lib/python3.10/dist-packages/centrifuge/client.py:1283> wait_for=<Future pending cb=[Task.task_wakeup()]>>
+2024-12-06 04:53:44,045 - ERROR - Task was destroyed but it is pending!
+task: <Task pending name='Task-148' coro=<WebSocketCommonProtocol.transfer_data() running at /usr/local/lib/python3.10/dist-packages/websockets/legacy/protocol.py:959> wait_for=<Future pending cb=[Task.task_wakeup()]> cb=[Task.task_wakeup(), _wait.<locals>._on_completion() at /usr/lib/python3.10/asyncio/tasks.py:475]>
+2024-12-06 04:53:44,047 - ERROR - Task was destroyed but it is pending!
+task: <Task pending name='Task-149' coro=<WebSocketCommonProtocol.keepalive_ping() running at /usr/local/lib/python3.10/dist-packages/websockets/legacy/protocol.py:1250> wait_for=<Future pending cb=[Task.task_wakeup()]>>
+2024-12-06 04:53:44,053 - ERROR - Task was destroyed but it is pending!
+task: <Task pending name='Task-150' coro=<WebSocketCommonProtocol.close_connection() running at /usr/local/lib/python3.10/dist-packages/websockets/legacy/protocol.py:1302> wait_for=<Task pending name='Task-148' coro=<WebSocketCommonProtocol.transfer_data() running at /usr/local/lib/python3.10/dist-packages/websockets/legacy/protocol.py:959> wait_for=<Future pending cb=[Task.task_wakeup()]> cb=[Task.task_wakeup(), _wait.<locals>._on_completion() at /usr/lib/python3.10/asyncio/tasks.py:475]>>
+2024-12-06 04:53:44,098 - ERROR - Task was destroyed but it is pending!
+task: <Task pending name='Task-152' coro=<Client._process_messages() running at /usr/local/lib/python3.10/dist-packages/centrifuge/client.py:1269> wait_for=<Future pending cb=[Task.task_wakeup()]>>
+2024-12-06 04:53:44,108 - ERROR - Task was destroyed but it is pending!
+task: <Task pending name='Task-151' coro=<Client._listen() running at /usr/local/lib/python3.10/dist-packages/centrifuge/client.py:1283> wait_for=<Future pending cb=[Task.task_wakeup()]>>
+2024-12-06 04:53:44,142 - ERROR - Fatal error on SSL transport
+protocol: <asyncio.sslproto.SSLProtocol object at 0x7f815f9e4370>
+transport: <_SelectorSocketTransport closing fd=36>
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/asyncio/selector_events.py", line 924, in write
+    n = self._sock.send(data)
+OSError: [Errno 9] Bad file descriptor
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/asyncio/sslproto.py", line 690, in _process_write_backlog
+    self._transport.write(chunk)
+  File "/usr/lib/python3.10/asyncio/selector_events.py", line 930, in write
+    self._fatal_error(exc, 'Fatal write error on socket transport')
+  File "/usr/lib/python3.10/asyncio/selector_events.py", line 725, in _fatal_error
+    self._force_close(exc)
+  File "/usr/lib/python3.10/asyncio/selector_events.py", line 737, in _force_close
+    self._loop.call_soon(self._call_connection_lost, exc)
+  File "/usr/lib/python3.10/asyncio/base_events.py", line 753, in call_soon
+    self._check_closed()
+  File "/usr/lib/python3.10/asyncio/base_events.py", line 515, in _check_closed
+    raise RuntimeError('Event loop is closed')
+RuntimeError: Event loop is closed
+2024-12-06 04:53:44,196 - ERROR - Task was destroyed but it is pending!
+task: <Task pending name='Task-164' coro=<WebSocketCommonProtocol.transfer_data() done, defined at /usr/local/lib/python3.10/dist-packages/websockets/legacy/protocol.py:950> wait_for=<Future pending cb=[Task.task_wakeup()]> cb=[Task.task_wakeup(), _wait.<locals>._on_completion() at /usr/lib/python3.10/asyncio/tasks.py:475]>
+2024-12-06 04:53:44,206 - ERROR - Task was destroyed but it is pending!
+task: <Task pending name='Task-165' coro=<WebSocketCommonProtocol.keepalive_ping() done, defined at /usr/local/lib/python3.10/dist-packages/websockets/legacy/protocol.py:1234> wait_for=<Future pending cb=[Task.task_wakeup()]>>
+2024-12-06 04:53:44,253 - ERROR - Task was destroyed but it is pending!
+task: <Task pending name='Task-166' coro=<WebSocketCommonProtocol.close_connection() running at /usr/local/lib/python3.10/dist-packages/websockets/legacy/protocol.py:1338> wait_for=<Task pending name='Task-164' coro=<WebSocketCommonProtocol.transfer_data() done, defined at /usr/local/lib/python3.10/dist-packages/websockets/legacy/protocol.py:950> wait_for=<Future pending cb=[Task.task_wakeup()]> cb=[Task.task_wakeup(), _wait.<locals>._on_completion() at /usr/lib/python3.10/asyncio/tasks.py:475]>>
+2024-12-06 04:53:44,254 - ERROR - Task was destroyed but it is pending!
+task: <Task pending name='Task-167' coro=<Client._listen() done, defined at /usr/local/lib/python3.10/dist-packages/centrifuge/client.py:1276> wait_for=<Future pending cb=[Task.task_wakeup()]>>
+2024-12-06 04:53:44,260 - ERROR - Task was destroyed but it is pending!
+task: <Task pending name='Task-168' coro=<Client._process_messages() done, defined at /usr/local/lib/python3.10/dist-packages/centrifuge/client.py:1265> wait_for=<Future cancelled>>
+2024-12-06 07:07:59,907 - INFO - Job queue is empty
+2024-12-06 07:08:03,164 - INFO - HTTP Request: GET https://api.gradio.app/gradio-messaging/en "HTTP/1.1 200 OK"
+2024-12-06 07:08:07,692 - INFO - HTTP Request: GET http://localhost:7860/gradio_api/startup-events "HTTP/1.1 200 OK"
+2024-12-06 07:08:07,730 - INFO - HTTP Request: HEAD http://localhost:7860/ "HTTP/1.1 200 OK"
+2024-12-06 07:08:07,884 - INFO - HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2024-12-06 07:08:08,583 - INFO - HTTP Request: GET https://api.gradio.app/v3/tunnel-request "HTTP/1.1 200 OK"
+2024-12-06 07:08:08,798 - INFO - HTTP Request: GET https://cdn-media.huggingface.co/frpc-gradio-0.3/frpc_linux_amd64 "HTTP/1.1 200 OK"
+2024-12-06 07:08:34,777 - INFO - PyTorch version 2.1.1 available.
+2024-12-06 07:08:34,778 - INFO - TensorFlow version 2.15.0 available.
+2024-12-06 07:08:49,056 - WARNING - The installed version of bitsandbytes was compiled without GPU support. 8-bit optimizers, 8-bit multiplication, and GPU quantization are unavailable.
+2024-12-06 09:02:39,439 - INFO - Job queue is empty
+2024-12-06 09:02:44,888 - INFO - HTTP Request: GET https://api.gradio.app/gradio-messaging/en "HTTP/1.1 200 OK"
+2024-12-06 09:02:49,615 - INFO - HTTP Request: GET http://localhost:7860/gradio_api/startup-events "HTTP/1.1 200 OK"
+2024-12-06 09:02:49,657 - INFO - HTTP Request: HEAD http://localhost:7860/ "HTTP/1.1 200 OK"
+2024-12-06 09:02:50,064 - INFO - HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2024-12-06 09:02:51,020 - INFO - HTTP Request: GET https://api.gradio.app/v3/tunnel-request "HTTP/1.1 200 OK"
+2024-12-06 09:02:51,301 - INFO - HTTP Request: GET https://cdn-media.huggingface.co/frpc-gradio-0.3/frpc_linux_amd64 "HTTP/1.1 200 OK"
+2024-12-06 09:05:27,106 - INFO - PyTorch version 2.1.1 available.
+2024-12-06 09:05:27,109 - INFO - TensorFlow version 2.15.0 available.
+2024-12-06 09:05:42,470 - WARNING - The installed version of bitsandbytes was compiled without GPU support. 8-bit optimizers, 8-bit multiplication, and GPU quantization are unavailable.
+2024-12-07 05:38:25,828 - INFO - Job queue is empty
+2024-12-07 05:38:28,497 - INFO - HTTP Request: GET https://api.gradio.app/gradio-messaging/en "HTTP/1.1 200 OK"
+2024-12-07 05:38:37,926 - INFO - HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2024-12-07 05:38:38,640 - INFO - HTTP Request: GET http://localhost:7860/gradio_api/startup-events "HTTP/1.1 200 OK"
+2024-12-07 05:38:38,714 - INFO - HTTP Request: HEAD http://localhost:7860/ "HTTP/1.1 200 OK"
+2024-12-07 05:38:39,673 - INFO - HTTP Request: GET https://api.gradio.app/v3/tunnel-request "HTTP/1.1 200 OK"
+2024-12-07 05:38:39,845 - INFO - HTTP Request: GET https://cdn-media.huggingface.co/frpc-gradio-0.3/frpc_linux_amd64 "HTTP/1.1 200 OK"
+2024-12-07 05:38:59,577 - INFO - PyTorch version 2.1.1 available.
+2024-12-07 05:38:59,578 - INFO - TensorFlow version 2.15.0 available.
+2024-12-07 05:51:31,322 - INFO - Job queue is empty
+2024-12-07 05:51:41,354 - INFO - HTTP Request: GET https://api.gradio.app/gradio-messaging/en "HTTP/1.1 200 OK"
+2024-12-07 05:52:08,829 - INFO - HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2024-12-07 05:52:08,941 - INFO - HTTP Request: GET http://localhost:7860/gradio_api/startup-events "HTTP/1.1 200 OK"
+2024-12-07 05:52:09,036 - INFO - HTTP Request: HEAD http://localhost:7860/ "HTTP/1.1 200 OK"
+2024-12-07 05:52:09,961 - INFO - HTTP Request: GET https://api.gradio.app/v3/tunnel-request "HTTP/1.1 200 OK"
+2024-12-07 05:53:38,925 - INFO - PyTorch version 2.1.1 available.
+2024-12-07 05:53:38,928 - INFO - TensorFlow version 2.15.0 available.
+2024-12-22 04:56:26,960 - INFO - Job queue is empty
+2024-12-22 04:56:31,259 - INFO - HTTP Request: GET https://api.gradio.app/gradio-messaging/en "HTTP/1.1 200 OK"
+2024-12-22 04:56:35,258 - ERROR - Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/exceptions.py", line 39, in exception_f
+    return f(*args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/api.py", line 158, in _model
+    predictions, model = _manager.model(
+  File "/usr/local/lib/python3.10/dist-packages/aixblock_ml/model.py", line 679, in model
+    predictions = m.model.model(project, **kwargs)
+  File "/app/model.py", line 1082, in model
+    load_model(task,model_id,project_id)
+  File "/app/model.py", line 1070, in load_model
+    _model = pipeline(
+  File "/usr/local/lib/python3.10/dist-packages/transformers/pipelines/__init__.py", line 893, in pipeline
+    normalized_task, targeted_task, task_options = check_task(task)
+  File "/usr/local/lib/python3.10/dist-packages/transformers/pipelines/__init__.py", line 548, in check_task
+    return PIPELINE_REGISTRY.check_task(task)
+  File "/usr/local/lib/python3.10/dist-packages/transformers/pipelines/base.py", line 1383, in check_task
+    raise KeyError(
+KeyError: "Unknown task text-to-text-translation, available tasks are ['audio-classification', 'automatic-speech-recognition', 'depth-estimation', 'document-question-answering', 'feature-extraction', 'fill-mask', 'image-classification', 'image-feature-extraction', 'image-segmentation', 'image-text-to-text', 'image-to-image', 'image-to-text', 'mask-generation', 'ner', 'object-detection', 'question-answering', 'sentiment-analysis', 'summarization', 'table-question-answering', 'text-classification', 'text-generation', 'text-to-audio', 'text-to-speech', 'text2text-generation', 'token-classification', 'translation', 'video-classification', 'visual-question-answering', 'vqa', 'zero-shot-audio-classification', 'zero-shot-classification', 'zero-shot-image-classification', 'zero-shot-object-detection', 'translation_XX_to_YY']"
+
+2024-12-22 04:57:05,198 - INFO - Job queue is empty
+2024-12-22 05:03:32,975 - INFO - HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2024-12-22 05:03:33,291 - INFO - HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2024-12-22 05:03:33,522 - INFO - HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2024-12-22 05:03:33,755 - INFO - HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2024-12-22 05:03:34,027 - INFO - HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2024-12-22 05:03:34,257 - INFO - HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2024-12-22 05:03:34,459 - INFO - HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2024-12-22 05:03:34,666 - INFO - HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2024-12-22 05:22:21,930 - INFO - Job queue is empty
+2024-12-22 05:22:35,608 - INFO - HTTP Request: GET https://api.gradio.app/gradio-messaging/en "HTTP/1.1 200 OK"
+2024-12-22 05:36:16,797 - WARNING - Error while downloading from https://cdn-lfs-us-1.hf.co/repos/e5/d3/e5d337e70acc0b9d76a5b9451ac64aa1925644163a37329ad013ca2dd94806a2/1ff795ff6a07e6a68085d206fb84417da2f083f68391c2843cd2b8ac6df8538f?response-content-disposition=inline%3B+filename*%3DUTF-8%27%27model.safetensors%3B+filename%3D%22model.safetensors%22%3B&Expires=1735103937&Policy=eyJTdGF0ZW1lbnQiOlt7IkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTczNTEwMzkzN319LCJSZXNvdXJjZSI6Imh0dHBzOi8vY2RuLWxmcy11cy0xLmhmLmNvL3JlcG9zL2U1L2QzL2U1ZDMzN2U3MGFjYzBiOWQ3NmE1Yjk0NTFhYzY0YWExOTI1NjQ0MTYzYTM3MzI5YWQwMTNjYTJkZDk0ODA2YTIvMWZmNzk1ZmY2YTA3ZTZhNjgwODVkMjA2ZmI4NDQxN2RhMmYwODNmNjgzOTFjMjg0M2NkMmI4YWM2ZGY4NTM4Zj9yZXNwb25zZS1jb250ZW50LWRpc3Bvc2l0aW9uPSoifV19&Signature=ZsDvyvqmfom4pTZm-di7hJ%7EgUhZI12RBd1ls75oc9EYCr234LCWVIRfXrSfEpVHwz4mYZEFXnUfvEadIfKhKYb3D0AQFbBqBfUpXlRmIL380C1x4E6FXVb6w1UAZ4GMNsuJMck%7EovugUD1F-BZdbFaw5LTlfX9UZKAOS%7E3OwB7WH%7EyOGn38PPgcm0xzsf49AZMliKgAAUb1mIePhRwb%7EDsJahcwNvHtU7UXGc8cZvWdEYLgQlvuzrSPIL75igBHRFwCkhEWdmGyscD2ARg17xI4glBferEkUmB-Be8BE8B3ZarVr6D5Q88sV5Ty9VaQJKFZ9Cef0vKHUwGqsRfCbBQ__&Key-Pair-Id=K24J24Z295AEI9: HTTPSConnectionPool(host='cdn-lfs-us-1.hf.co', port=443): Read timed out.
+Trying to resume download...
+2024-12-22 10:24:54,342 - INFO - HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2024-12-22 10:24:55,149 - INFO - HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2024-12-22 10:24:55,908 - INFO - HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2024-12-22 10:24:56,623 - INFO - HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2024-12-22 10:24:57,343 - INFO - HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2024-12-22 10:24:57,924 - INFO - HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2024-12-22 10:24:58,608 - INFO - HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"
+2024-12-22 10:24:59,402 - INFO - HTTP Request: GET https://api.gradio.app/pkg-version "HTTP/1.1 200 OK"

@@ -1,0 +1,33 @@
+version: "3.8"
+
+services:
+  redis:
+    image: redis:alpine
+    container_name: redis
+    hostname: redis
+    volumes:
+      - "./data/redis:/data"
+    expose:
+      - 6379
+
+  huggingface_llm:
+    # container_name: huggingface_llm
+    build: .
+    environment:
+      - MODEL_DIR=/data/models
+      - RQ_QUEUE_NAME=default
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - AIXBLOCK_USE_REDIS=false
+      - HOST_NAME=https://app.aixblock.io
+    ports:
+      - 9090:9090 
+      - 6006:6006 
+      - 12346:12345
+    depends_on:
+      - redis
+    links:
+      - redis
+    volumes:
+      - "./data/server:/data"
+      - "./logs:/app/logs"
