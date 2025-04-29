@@ -497,6 +497,27 @@ class MyModel(AIxBlockMLBase):
                 image_segmentation = pipeline("image-segmentation", model=model_id)
                 image_segmentation = image_segmentation(image_64)
                 generated_text = image_segmentation[0]
+                from io import BytesIO
+                import cv2
+                import numpy as np
+                from PIL import Image
+
+                def mask_to_points(pil_mask: Image.Image):
+                    mask_array = np.array(pil_mask)  # Convert PIL to NumPy array
+
+                    # Threshold để chắc chắn là nhị phân (0 hoặc 255)
+                    _, thresh = cv2.threshold(mask_array, 127, 255, cv2.THRESH_BINARY)
+
+                    # Tìm contours (đường bao)
+                    contours, _ = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+
+                    # Chuyển mỗi contour thành list point [(x1, y1), (x2, y2), ...]
+                    points = [contour.squeeze().tolist() for contour in contours if contour.shape[0] >= 3]
+
+                    return points
+                    
+                points = mask_to_points(generated_text['mask'])
+                generated_text['mask'] = points
 
             elif task == "video-classification":
                 #  {"project":"296","params":{"task":"video-classification","model_id":"sayakpaul/videomae-base-finetuned-kinetics-finetuned-ucf101-subset"}}
