@@ -400,12 +400,16 @@ class MyModel(AIxBlockMLBase):
         elif command.lower() == "predict":
             from huggingface_hub import login 
             import torch
-            hf_access_token = kwargs.get("hf_access_token", "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")
-            login(token = hf_access_token)
+            try:
+                hf_access_token = kwargs.get("hf_access_token", "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")
+                login(token = hf_access_token)
+            except Exception as e:
+                return {"message": f"predict failed: {e}"}
+                
             prompt = kwargs.get("prompt", "")
             model_id = kwargs.get("model_id", "")
             text = kwargs.get("text", "")
-            token_length = kwargs.get("token_lenght", "")
+            token_length = kwargs.get("token_lenght", 50)
             task = kwargs.get("task", "")
 
             predictions = []
