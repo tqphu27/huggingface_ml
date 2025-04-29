@@ -45,7 +45,7 @@ scipy
 bitsandbytes>=0.41.3
 langchain
 langchain_community
-# en_core_web_sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-2.3.1/en_core_web_sm-2.3.1.tar.gz
+en_core_web_sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-2.3.1/en_core_web_sm-2.3.1.tar.gz
 # tiktoken
 # accelerate>=0.27.0
 nvidia-ml-py
@@ -62,6 +62,7 @@ rich
 # vllm
 # auto-round
 # # intel_extension_for_pytorch==2.5.0
+huggingface_hub[hf_xet]
 timm
 apscheduler
 fastapi
