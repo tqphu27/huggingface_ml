@@ -67,3 +67,4 @@ apscheduler
 fastapi
 uvicorn
 mcp
+soundfile
