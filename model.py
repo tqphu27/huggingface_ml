@@ -100,171 +100,9 @@ import subprocess
 import shutil
 import threading
 import requests
-import time
-from dashboard import promethus_grafana
-from centrifuge import CentrifugeError, Client, ClientEventHandler, SubscriptionEventHandler
 from mcp.server.fastmcp import FastMCP
 
 mcp = FastMCP("aixblock-mcp")
-
-os.environ["CUDA_DEVICE_ORDER"]="PCI_BUS_ID"   # see issue #152
-os.environ["CUDA_VISIBLE_DEVICES"]="0"
-
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s', handlers=[
-    logging.FileHandler("{0}/{1}.log".format("logs", "hf-llm")),
-    logging.StreamHandler()
-])
-
-def base64url_encode(data):
-    return base64.urlsafe_b64encode(data).rstrip(b"=")
-
-def generate_jwt(user, channel=""):
-    """Note, in tests we generate token on client-side - this is INSECURE
-    and should not be used in production. Tokens must be generated on server-side."""
-    hmac_secret = "d0a70289-9806-41f6-be6d-f4de5fe298fb"  # noqa: S105 - this is just a secret used in tests.
-    header = {"typ": "JWT", "alg": "HS256"}
-    payload = {"sub": user}
-    if channel:
-        # Subscription token
-        payload["channel"] = channel
-    encoded_header = base64url_encode(json.dumps(header).encode("utf-8"))
-    encoded_payload = base64url_encode(json.dumps(payload).encode("utf-8"))
-    signature_base = encoded_header + b"." + encoded_payload
-    signature = hmac.new(hmac_secret.encode("utf-8"), signature_base, hashlib.sha256).digest()
-    encoded_signature = base64url_encode(signature)
-    jwt_token = encoded_header + b"." + encoded_payload + b"." + encoded_signature
-    return jwt_token.decode("utf-8")
-
-# logging.basicConfig(
-#     level=logging.INFO,
-#     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-# )
-# cf_logger = logging.getLogger("centrifuge")
-# cf_logger.setLevel(logging.DEBUG)
-
-async def get_client_token() -> str:
-    return generate_jwt("42")
-
-async def get_subscription_token(channel: str) -> str:
-    return generate_jwt("42", channel)
-
-class ClientEventLoggerHandler(ClientEventHandler):
-    async def on_connected(self, ctx):
-        logging.info("Connected to server")
-
-class SubscriptionEventLoggerHandler(SubscriptionEventHandler):
-    async def on_subscribed(self, ctx):
-        logging.info("Subscribed to channel")
-
-def setup_client(channel_log):
-    client = Client(
-        "wss://rt.aixblock.io/centrifugo/connection/websocket",
-        events=ClientEventLoggerHandler(),
-        get_token=get_client_token,
-        use_protobuf=False,
-    )
-
-    sub = client.new_subscription(
-        channel_log,
-        events=SubscriptionEventLoggerHandler(),
-        # get_token=get_subscription_token,
-    )
-
-    return client, sub
-
-async def send_log(sub, log_message):
-    try:
-        await sub.publish(data={"log": log_message})
-    except CentrifugeError as e:
-        logging.error("Error publish: %s", e)
-# channel_deploy = f'project/{project_id}/deploy-history'
-#  client, sub = setup_client(channel_deploy)
-# send_message(fchannel_deploy,{"refresh": True})
-# client.disconnect()  # Đóng kết nối
-async def send_message(sub, message):
-    try:
-        await sub.publish(data=message)
-    except CentrifugeError as e:
-        logging.error("Error publish: %s", e)
-# def log_training_progress(log_message):
-#     client.disconnect()  # Đóng kết nối
-
-async def log_training_progress(sub, log_message):
-    await send_log(sub, log_message)
-
-def run_train(command, channel_log="training_logs"):
-    def run():
-        try:
-            loop = asyncio.new_event_loop()
-            asyncio.set_event_loop(loop)
-            client, sub = setup_client(channel_log)
-            async def main():
-                await client.connect()
-                await sub.subscribe()
-                await log_training_progress(sub, "Training started")
-                log_file_path = "logs/llm-ddp.log"
-                last_position = 0  # Vị trí đã đọc đến trong file log
-                await log_training_progress(sub, "Training training")
-                promethus_grafana.promethus_push_to("training")
-                
-                while True:
-                    try:
-                        current_size = os.path.getsize(log_file_path)
-                        if current_size > last_position:
-                            with open(log_file_path, "r") as log_file:
-                                log_file.seek(last_position)
-                                new_lines = log_file.readlines()
-                                # print(new_lines)
-                                for line in new_lines:
-                                    print("--------------" ,f"{line.strip()}")
-                        #             # Thay thế đoạn này bằng code để gửi log
-                                    await log_training_progress(sub, f"{line.strip()}")
-                            last_position = current_size  
-
-                        time.sleep(5)
-                    except Exception as e:
-                        print(e)
-
-                promethus_grafana.promethus_push_to("finish")
-                await log_training_progress(sub, "Training completed")
-                await client.disconnect()
-                loop.stop()
-
-            try:
-                loop.run_until_complete(main())
-            finally:
-                loop.close()  # Đảm bảo vòng lặp được đóng lại hoàn toàn
-    
-        except Exception as e:
-            print(e)
-
-    thread_start = threading.Thread(target=run)
-    thread_start.start()
-    subprocess.run(command, shell=True)
-    # try:
-    #     promethus_grafana.promethus_push_to("finish")
-    # except:
-    #     pass
-
-def fetch_logs(channel_log="training_logs"):
-    loop = asyncio.new_event_loop()
-    asyncio.set_event_loop(loop)
-
-    client, sub = setup_client(channel_log)
-
-    async def run():
-        await client.connect()
-        await sub.subscribe()
-        history = await sub.history(limit=-1)
-        logs = []
-        for pub in history.publications:
-            log_message = pub.data.get('log')
-            if log_message:
-                logs.append(log_message)
-        await client.disconnect()
-        return logs
-
-    return loop.run_until_complete(run())
 
 HOST_NAME = os.environ.get('HOST_NAME',"http://127.0.0.1:8080")
 
@@ -273,7 +111,6 @@ def download_checkpoint(weight_zip_path, project_id, checkpoint_id, token):
     payload = {}
     headers = {
         'accept': 'application/json',
-        # 'Authorization': 'Token 5d3604c4c57def9a192950ef7b90d7f1e0bb05c1'
         'Authorization': f'Token {token}'
     }
     response = requests.request("GET", url, headers=headers, data=payload) 
@@ -381,7 +218,6 @@ class MyModel(AIxBlockMLBase):
         from huggingface_hub import login 
        
         print(f"""
-                project: {project},
                 command: {command},
                 collection: {collection},
               """)
@@ -972,11 +808,6 @@ class MyModel(AIxBlockMLBase):
             # except Exception as e:
             #     print(e)
             #     return {"message": "predict failed", "result": None}
-            
-        elif command.lower() == "logs":
-            channel_log = kwargs.get("channel_log", "training_logs")
-            logs = fetch_logs(channel_log)
-            return {"message": "command not supported", "result": logs}
         
         elif command.lower() == "stop":
             subprocess.run(["pkill", "-9", "-f", "llama_recipes/finetuning.py"])
@@ -998,12 +829,6 @@ class MyModel(AIxBlockMLBase):
         from transformers import pipeline
         task = kwargs.get("task", "text-generation")
         model_id = kwargs.get("model_id","meta-llama/Llama-3.2-1B-Instruct")
-        project_id = project
-
-        print(f'''\
-        Project ID: {project_id}
-        Label config: {self.label_config}
-        Parsed JSON Label config: {self.parsed_label_config}''')
         import sys
        
         class Logger:
@@ -1030,41 +855,7 @@ class MyModel(AIxBlockMLBase):
         from huggingface_hub import login 
         hf_access_token = kwargs.get("hf_access_token", "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")
         login(token = hf_access_token)
-        def load_model(task,model_id,project_id):
-            from huggingface_hub import login 
-            hf_access_token = kwargs.get("hf_access_token", "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")
-            login(token = hf_access_token)
-            if torch.cuda.is_available():
-                if torch.cuda.is_bf16_supported():
-                    dtype = torch.bfloat16
-                else:
-                    dtype = torch.float16
 
-                print("CUDA is available.")
-                
-                _model = pipeline(
-                    task,
-                    model=model_id, #"meta-llama/Llama-3.2-1B-Instruct", #"meta-llama/Llama-3.2-3B", meta-llama/Llama-3.3-70B-Instruct
-                    torch_dtype=dtype, 
-                    device_map="auto",  # Hoặc có thể thử "cpu" nếu không ổn,
-                    max_new_tokens=256,
-                    token = "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"
-                )
-            else:
-                print("No GPU available, using CPU.")
-                _model = pipeline(
-                    task,
-                    model=model_id, #"meta-llama/Llama-3.2-1B-Instruct", #"meta-llama/Llama-3.2-3B", meta-llama/Llama-3.3-70B-Instruct
-                    device_map="cpu",
-                    max_new_tokens=256,
-                    token = "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"
-                )
-            channel_deploy = f'project/{project_id}/deploy-history'
-            client, sub = setup_client(channel_deploy)
-            send_message(sub,{"refresh": True})
-            client.disconnect()  # Đóng kết nối client
-            return _model
-        load_model(task,model_id,project_id)
         def generate_response(user_input):
             # Initialize the text-generation pipeline with your model
             pipe = pipeline(task, model=model_id,token = "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")
@@ -1073,6 +864,7 @@ class MyModel(AIxBlockMLBase):
             print(result)
             read_logs()
             return result
+            
         def generate_text2text_response(input_text):
             from huggingface_hub import login 
             hf_access_token = kwargs.get("hf_access_token", "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")
@@ -2482,32 +2274,6 @@ class MyModel(AIxBlockMLBase):
     
     @mcp.tool()
     def model_trial(self, **kwargs):
-
-#          {"project":"296",
-#  "params": {
-#     "model_id":"openaccess-ai-collective/tiny-mistral",
-#     "dataset_id":"August4293/Self_Alignment_Preference-Dataset",
-#     // "task": "summarization",
-#     "num_train_epochs":3,
-#     "per_device_train_batch_size":3,
-#     "gradient_accumulation_steps":2,
-#     "gradient_checkpointing":true,
-#     "optim":"adamw_torch_fused",
-#     "logging_steps":10,
-#     "save_strategy":"epoch",
-#     "learning_rate":2e-4,
-#     "bf16":false,
-#     "tf32":false, 
-#     "max_grad_norm":0.3,
-#     "warmup_ratio":0.03,    
-#     "lora_alpha":128,
-#     "lora_dropout":0.05,
-#     "bias":"none",
-#     "target_modules":"all-linear",
-#     "task_type":"CAUSAL_LM",
-#     "use_cpu":true
-#   }
-#  }
         return {"message": "Done", "result": "Done"}
         from huggingface_hub import login 
         hf_access_token = kwargs.get("hf_access_token", "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")
@@ -3043,5 +2809,5 @@ class MyModel(AIxBlockMLBase):
    
         # return {"share_url": share_url, 'local_url': local_url}
     
-    def download(self, project, **kwargs):
-        return super().download(project, **kwargs)
+    def download(self, **kwargs):
+        return super().download(**kwargs)
