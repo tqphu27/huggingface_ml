@@ -42,3 +42,7 @@ flask_swagger_ui
 pyyaml
 gradio_log
 tf-keras
+apscheduler
+fastapi
+uvicorn
+mcp
