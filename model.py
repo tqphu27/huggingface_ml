@@ -494,7 +494,7 @@ class MyModel(AIxBlockMLBase):
                 generated_text = image_classification[0]
 
             elif task == "image-segmentation":
-                image_64 = kwargs.get("image")
+                image = kwargs.get("image")
                 model_id = kwargs.get("model_id", "facebook/mask2former-swin-large-coco-panoptic")
                 image_segmentation = pipeline("image-segmentation", model=model_id)
                 image_segmentation = image_segmentation(image)
